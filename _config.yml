@@ -29,7 +29,17 @@ github_username:  TheDrawingCoder-Gamer
 theme: minima
 plugins:
   - jekyll-feed
+  - jekyll-toc
 
+toc:
+    min_level: 1
+    max_level: 3
+
+defaults:
+  - scope:
+      path: ""
+    values:
+      toc: true
 mastodon:
   - username: bulbyvr
     instance: toot.menkissing.gay

@@ -2,12 +2,20 @@
 layout: page
 ---
 
-<h2>Puzzle Description</h2>
+{% capture newContent %}
+    <h2>Puzzle Description</h2>
 
-<a href="https://adventofcode.com/{{page.year}}/day/{{page.day}}">Advent of Code {{page.year}}, Day {{page.day}}</a>
+    <a href="https://adventofcode.com/{{page.year}}/day/{{page.day}}">Advent of Code {{page.year}}, Day {{page.day}}</a>
 
-<h2>Scala Center Page</h2>
+    <h2>Scala Center Page</h2>
 
-<a href="https://scalacenter.github.io/scala-advent-of-code/{{page.year}}/puzzles/day{{page.day}}">Scala Center Advent of Code {{page.year}}, Day {{page.day}}</a>
+    <a href="https://scalacenter.github.io/scala-advent-of-code/{{page.year}}/puzzles/day{{page.day}}">Scala Center Advent of Code {{page.year}}, Day {{page.day}}</a>
+    {{ content }}
+{% endcapture %}
 
-{{ content }}
+<div id="table-of-contents">
+    {{ newContent | toc_only }}
+</div>
+<div id="markdown-content">
+    {{ newContent | inject_anchors }}
+</div>
