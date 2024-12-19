@@ -2,14 +2,9 @@
 title: "Day 17: Chronospatial Computer"
 year: 2024
 day: 17
+layout: solution
 ---
 
-## Puzzle Description
-<https://adventofcode.com/2024/day/17>
-
-## Scala Center Page
-
-<https://scalacenter.github.io/scala-advent-of-code/2024/puzzles/day17>
 
 ## Solution Summary
 

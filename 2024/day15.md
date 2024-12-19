@@ -2,10 +2,9 @@
 title: "Day 15: Warehouse Woes"
 year: 2024
 day: 15
+layout: solution
 ---
 
-## Puzzle Description
-<https://adventofcode.com/2024/day/15>
 
 ## Solution Summary
 

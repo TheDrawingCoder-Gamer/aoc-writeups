@@ -4,11 +4,11 @@
 		{% assign indexes = site.pages | where: 'day', 0 | where_exp: 'page', 'page.year' | sort: 'year' %}
 		{% for idx in indexes %}
 			<div class="dropdown">
-				<a href="{{idx.url}}" class="dropdown-btn">{{idx.year}}</a>
+				<a href="{{site.baseurl}}{{idx.url}}" class="dropdown-btn">{{idx.year}}</a>
 				<div class="dropdown-content">
 					{% assign yearPages = site.pages | where: 'year', idx.year | where_exp: 'page', 'page.day != 0' | sort: 'day' %}
 					{% for page in yearPages %}
-						<a href="{{page.url}}">Day {{page.day}}</a>
+						<a href="{{site.baseurl}}{{page.url}}">Day {{page.day}}</a>
 					{% endfor %}
 				</div>
 			</div>
