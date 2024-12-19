@@ -1,5 +1,5 @@
 <div class="banner">
-	<a href="/index.html"><img src="/assets/bulbytrans.png" /></a>
+	<a href="{{site.baseurl}}/index.html"><img src="/assets/bulbytrans.png" /></a>
 	<div class="navbar">
 		{% assign indexes = site.pages | where: 'day', 0 | where_exp: 'page', 'page.year' | sort: 'year' %}
 		{% for idx in indexes %}
