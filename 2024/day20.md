@@ -13,7 +13,7 @@ layout: solution
 
 ## Part 1
 
-Part 1 is just a cheat of 2 picoseconds, which isn't very hard. However, to plan ahead for part 2 I'll just make it optimized now.
+Part 1 is just a cheat of 2 picoseconds, which isn't very hard.
 
 
 Let's get started with our data types. I'm honestly tired of rewriting stuff for my writeups so I'm not even going to bother today,
@@ -44,9 +44,7 @@ def parse(str: String): RaceTrack =
   RaceTrack(start, end, Grid(goodGrid))
 ```
 
-Before we find the cheats, let's write our pathfind function now. I could just pull in my `astar` function,
-but initially I had some special code for limiting the amount searched and returning `None` if that limit was
-exceeded. 
+Before we find the cheats, let's write our pathfind function now.
 
 Here's the pathfinding function, and a companion timing function:
 
@@ -88,22 +86,52 @@ case class RaceTrack(start: Vec2i, end: Vec2i, grid: Grid[Boolean]):
   lazy val basePath: List[Vec2i] = grid.pathfind(start, end).get
 ```
 
-Now we can actually find all the valid cheats.
+Now we can actually find all the valid cheats. For part 1 it's fairly easy to find all points; it's just finding all walls with at least two neighbors.
 
-I'm not going to take credit for this optimization; I was able to solve today fully in about 20 seconds but with 
-[Berg's optimization](https://gitlab.com/matthew.smedberg/advent-of-code-2024/-/blob/main/dec-20/src/main/scala/advent2024/dec20/Dec20.scala)
-it's down to 1.5s for part 1 and 3 seconds for part 2. The optimization here is realizing that skips are only ever between points already on the best path,
-and that the time saved is, in their words, the difference between an "geodesic metric" and an "induced metric". A geodesic path is number of steps along the path,
-and the induced metric is the taxicab distance. For part 1, a cheat is a two points whose taxicab distance is 2 and their geodesic distance is greater than 2, and
-the savings is the geodesic distance minus taxicab distance.
 
 Let's define our cheat class:
 
 ```scala
-case class Cheat(start: Vec2i, end: Vec2i, saved: Int)
+case class Cheat(skips: Vec2i)
 ```
 
 Then let's find all of them:
+```scala
+case class RaceTrack(start: Vec2i, end: Vec2i, grid: Grid[Boolean]):
+  // ...
+  def findCheats(): List[Cheat] =
+    grid.zipWithIndices.withFilter(_._1).flatMap: (_, p) =>
+      Option.when(p.cardinalNeighbors.count(grid.get(p).contains(false)) >= 2)(Cheat(p))
+```
+
+
+Part 1 is simple now:
+
+```scala
+def part1(input: RaceTrack): Int =
+  val baseScore = input.basePath.size
+  val cheats = input.findCheats()
+
+  cheats.count(c => input.grid.updated(c.skips)(false).pathfind(input.start, input.end).get.size >= 100)
+```
+
+## Part 2
+
+
+Part 2 sets all of our previous code on fire and we'll have to rewrite almost everything.
+
+First we need to understand some concepts. I solved this myself with a final time of ~20s, but I'm using
+[Berg's optimization](https://gitlab.com/matthew.smedberg/advent-of-code-2024/-/blob/main/dec-20/src/main/scala/advent2024/dec20/Dec20.scala)
+which gets it down to 4s. He realized that all that matters is skips between points already on the path, so we can use the base path and only have to
+pathfind once. The difference in indices in the path of the two points is the non cheat time, and the taxicab distance between them is the
+time with cheat, so the time saved is the difference between those.
+
+Let's redefine our `Cheat` class so it works for longer skips and saves the time saved.
+```scala
+case class Cheat(start: Vec2i, end: Vec2i, saved: Int)
+```
+
+Let's redefine our `findCheats` function as well:
 
 ```scala
 case class RaceTrack(start: Vec2i, end: Vec2i, grid: Grid[Boolean]):
@@ -115,29 +143,26 @@ case class RaceTrack(start: Vec2i, end: Vec2i, grid: Grid[Boolean]):
         Option.when(dist <= limit && (dist < ri - li))(Cheat(lp, rp, (ri - li) - dist))
 ```
 
-The geodesic distance here is calculated as the difference between paths. We only take in ones where
-the cheat is valid (the taxicab distance is <= the limit) and where time is saved 
-(the distance is less than geodesic distance of `ri - li`). We then save the time saved in the cheat itself. All of the computation
+We only take in ones where the cheat is valid (the taxicab distance is <= the limit) and where time is saved 
+(the taxicab distance is less than path distance of `ri - li`). We then save the time saved in the cheat itself. All of the computation
 for the time saved is right here, and we only need to pathfind once.
 
-Part 1 is simple now:
-
+We'll have to update our part 1 code to keep it working:
 ```scala
 def part1(input: RaceTrack): Int =
   val cheats = input.findCheats(2)
 
-  cheats.count(_.saved > 100)
+  cheats.count(_.saved >= 100)
 ```
 
-## Part 2
+As a side note, this gets part 1 from 4s down to 1.5s.
 
-Because we've already optimized part 1 and planned ahead, part 2 is the same as part 1, just with the limit changed:
-
+Part 2 is the same as our updated part 1 code, but with the limit set to 20:
 ```scala
 def part2(input: RaceTrack): Int =
   val cheats = input.findCheats(20)
  
-  cheats.count(_.saved > 100)
+  cheats.count(_.saved >= 100)
 ```
 
 ## Final Code
@@ -186,7 +211,7 @@ case class Cheat(start: Vec2i, end: Vec2i, saved: Int)
 
 
 
-override def parse(str: String): RaceTrack =
+def parse(str: String): RaceTrack =
   val goodGrid = mut.ArrayBuffer.fill(str.linesIterator.length, str.linesIterator.next().length)(false)
   var start = Vec2i(0, 0)
   var end = Vec2i(0, 0)
@@ -201,12 +226,12 @@ override def parse(str: String): RaceTrack =
         case _ => ()
   RaceTrack(start, end, Grid(goodGrid))
 
-override def part1(input: RaceTrack): Int =
+def part1(input: RaceTrack): Int =
   val cheats = input.findCheats(2)
 
   cheats.count(_.saved >= 100)
 
-override def part2(input: RaceTrack): Int =
+def part2(input: RaceTrack): Int =
   val cheats = input.findCheats(20)
 
   cheats.count(_.saved >= 100)
