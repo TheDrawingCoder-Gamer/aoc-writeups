@@ -1,9 +1,10 @@
----
-title: "Day 19: Linen Layout"
-year: 2024
-day: 19
-layout: solution
----
+{%
+aoc.day = 19
+%}
+
+# Day 19: Linen Layout
+
+@:include(/inc/solutionHeader.md)
 
 ## Solution Summary
 

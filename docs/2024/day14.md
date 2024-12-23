@@ -1,9 +1,9 @@
----
-title: "Day 14: Restroom Redoubt"
-day: 14
-year: 2024
-layout: solution
----
+{% 
+aoc.day = 14
+%}
+# Day 14: Restroom Redoubt
+
+@:include(/inc/solutionHeader.md)
 
 ## Solution Summary
 

@@ -1,10 +1,10 @@
----
-title: "Day 17: Chronospatial Computer"
-year: 2024
-day: 17
-layout: solution
----
+{%
+aoc.day = 17
+%}
 
+# Day 17: Chronospatial Computer
+
+@:include(/inc/solutionHeader.md)
 
 ## Solution Summary
 

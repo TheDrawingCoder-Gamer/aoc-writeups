@@ -1,9 +1,9 @@
----
-title: "Day 20: Race Condition"
-year: 2024
-day: 20
-layout: solution
----
+{%
+aoc.day = 20
+%}
+# Day 20: Race Condition
+
+@:include(/inc/solutionHeader.md)
 
 ## Solution Summary
 

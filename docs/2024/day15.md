@@ -1,10 +1,10 @@
----
-title: "Day 15: Warehouse Woes"
-year: 2024
-day: 15
-layout: solution
----
+{%
+aoc.day = 15
+%}
 
+# Day 15: Warehouse Woes
+
+@:include(/inc/solutionHeader.md)
 
 ## Solution Summary
 

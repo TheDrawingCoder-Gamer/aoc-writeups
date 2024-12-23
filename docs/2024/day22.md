@@ -1,9 +1,11 @@
----
-title: "Day 22: Monkey Market"
-year: 2024
-day: 22
-layout: solution
----
+{%
+aoc.year = 2024
+aoc.day = 22
+%}
+
+# Day 22: Monkey Market
+
+@:include(/inc/solutionHeader.md)
 
 ## Solution Summary
 
@@ -13,10 +15,12 @@ layout: solution
 Part 1 and part 2 are pretty disjoint after this.
 
 For part 1, then:
+
 1. For each value in the input, apply this function 2000 times, and convert to `Long` at the end
 2. Sum all these values
 
 For part 2, then:
+
 1. For each value, get the first 2000 numbers in the sequence, and modulo them by 10.
 2. Get a list of all possible valid combinations of diffs (so `-9 to 9` * 4)
 3. For all of the sequences of the first 2000 numbers, get a sequence of all diffs in the list and what number they result in
