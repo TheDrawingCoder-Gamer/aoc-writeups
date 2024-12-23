@@ -29,7 +29,12 @@ concurrency:
 jobs:
   # Build job
   build:
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        scala: [3.6.2]
+        java: [temurin@8]
+    runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
