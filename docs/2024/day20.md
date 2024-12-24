@@ -237,4 +237,4 @@ def part2(input: RaceTrack): Int =
   cheats.count(_.saved >= 100)
 ```
 
-[Solution on github](https://github.com/TheDrawingCoder-Gamer/adventofcode2024/blob/master/src/main/scala/Day20.scala)
+[Solution on github](https://github.com/TheDrawingCoder-Gamer/adventofcode2024/tree/e163baeaedcd90732b5e19f578a2faadeb1ef872/src/main/scala/Day20.scala)
