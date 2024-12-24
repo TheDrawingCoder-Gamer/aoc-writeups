@@ -1,5 +1,5 @@
 {%
-day = 12
+aoc.day = 12
 %}
 
 # Day 12: Garden Groups
