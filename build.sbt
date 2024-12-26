@@ -5,6 +5,8 @@ import cats.effect.IO
 import laika.ast.DocumentType
 import laika.ast.Path.Root
 import laika.ast./
+import laika.helium.Helium
+import laika.theme.config.Color
 
 import scala.concurrent.duration.DurationDouble
 
@@ -14,7 +16,17 @@ lazy val root = project.in(file("."))
 
 val laikaMdocBuild = taskKey[Set[File]]("Build mdoc, then laika")
 val laikaMdocSite = taskKey[Unit]("Serve mdoc/laika site")
-
+val theme = Helium.defaults
+                  .all.themeColors(
+      Color.hex("f99995"),
+      Color.hex("fcbbb3"),
+      Color.hex("9D2235"),
+      Color.hex("cc1055"),
+      Color.hex("f99995"),
+      Color.hex("600f23"),
+      (Color.hex("FA8072"), Color.hex("fcbbb3"))
+    ).site.darkMode.disabled
+                  .site.internalCSS(Root / "assets" / "extra.css").build
 
 lazy val docs = project
   .in(file("website"))
@@ -32,5 +44,6 @@ lazy val docs = project
         (Compile / mdoc).toTask(" --watch ").value
         laikaPreview.value
       }
-    ).value
+    ).value,
+    laikaTheme := theme
   )
