@@ -1,8 +1,0 @@
-2024.12.25 18:22:40 INFO  tracing is disabled for protocol LSP, to enable tracing of incoming and outgoing JSON messages create an empty file at /home/bulby/Documents/github/aoc-writeups/.metals/lsp.trace.json or /home/bulby/.cache/metals/lsp.trace.json[0m
-2024.12.25 18:22:40 INFO  logging to file /home/bulby/Documents/github/aoc-writeups/.metals/metals.log[0m
-2024.12.25 18:22:40 INFO  Started: Metals version 0.11.9 in workspace '/home/bulby/Documents/github/aoc-writeups' for client Neovim 0.10.2+v0.10.2.[0m
-2024.12.25 18:22:40 INFO  time: initialize in 0.7s[0m
-2024.12.25 18:22:41 WARN  Build server is not auto-connectable.[0m
-2024.12.25 18:22:41 WARN  no build target for: /home/bulby/Documents/github/aoc-writeups/build.sbt[0m
-2024.12.25 18:22:43 INFO  no build target found for /home/bulby/Documents/github/aoc-writeups/build.sbt. Using presentation compiler with project's scala-library version: 3.2.0[0m
-2024.12.25 18:27:55 WARN  no build target for: /home/bulby/Documents/github/aoc-writeups/build.sbt[0m

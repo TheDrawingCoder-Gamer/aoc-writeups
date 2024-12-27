@@ -1,4 +1,4 @@
-import laika.config.{MessageFilters, SyntaxHighlighting, TargetFormats}
+import laika.config.{ChoiceConfig, MessageFilters, SelectionConfig, Selections, SyntaxHighlighting, TargetFormats}
 import laika.format.Markdown
 import laika.io.model.InputTree
 import cats.effect.IO
@@ -35,7 +35,12 @@ lazy val docs = project
   .settings(
     laikaExtensions := Seq(Markdown.GitHubFlavor, SyntaxHighlighting, ScalaCenterLinkDirectives),
     laikaConfig := LaikaConfig.defaults
-                              .withMessageFilters(MessageFilters.forVisualDebugging),
+                              .withConfigValue(Selections(
+                                SelectionConfig("language",
+                                  ChoiceConfig("scala", "Scala 3"),
+                                  ChoiceConfig("haskell", "Haskell")
+                                )
+                              )),
     laikaInputs := InputTree[IO]
       .addDirectory(mdocOut.value.toString),
     laikaMdocBuild := Def.sequential((Compile / mdoc).toTask(" "), (Compile / laikaHTML)).value,
