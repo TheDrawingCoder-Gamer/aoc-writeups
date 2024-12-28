@@ -43,6 +43,14 @@ lazy val docs = project
                                 SelectionConfig("languageElixir",
                                   ChoiceConfig("scala", "Scala 3"),
                                   ChoiceConfig("elixir", "Elixir")
+                                ),
+                                SelectionConfig("languageHaxe",
+                                  ChoiceConfig("scala", "Scala 3"),
+                                  ChoiceConfig("haxe", "Haxe")
+                                ),
+                                SelectionConfig("languageRuby",
+                                  ChoiceConfig("scala", "Scala 3"),
+                                  ChoiceConfig("ruby", "Ruby")
                                 )
                               )),
     laikaInputs := InputTree[IO]
