@@ -29,7 +29,19 @@ object HaxeSyntax extends SyntaxHighlighter {
       "final",
       "var",
       "if",
-      "else"
+      "else",
+      "typedef",
+      "private",
+      "break",
+      "continue",
+      "switch",
+      "while",
+      "do",
+      "throw",
+      "try",
+      "catch",
+      "new",
+      "trace"
     )
   private val charEscapes: CodeSpanParser =
     StringLiteral.Escape.unicode ++ StringLiteral.Escape.char
