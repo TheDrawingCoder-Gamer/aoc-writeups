@@ -33,12 +33,16 @@ lazy val docs = project
   .dependsOn(root)
   .enablePlugins(MdocPlugin, LaikaPlugin)
   .settings(
-    laikaExtensions := Seq(Markdown.GitHubFlavor, SyntaxHighlighting, ScalaCenterLinkDirectives),
+    laikaExtensions := Seq(Markdown.GitHubFlavor, SyntaxHighlighting, ScalaCenterLinkDirectives, SyntaxExtension),
     laikaConfig := LaikaConfig.defaults
                               .withConfigValue(Selections(
                                 SelectionConfig("language",
                                   ChoiceConfig("scala", "Scala 3"),
                                   ChoiceConfig("haskell", "Haskell")
+                                ),
+                                SelectionConfig("languageElixir",
+                                  ChoiceConfig("scala", "Scala 3"),
+                                  ChoiceConfig("elixir", "Elixir")
                                 )
                               )),
     laikaInputs := InputTree[IO]
