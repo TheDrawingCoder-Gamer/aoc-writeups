@@ -19,7 +19,8 @@ object RubySyntax extends SyntaxHighlighter {
       "in",
       "do",
       "end",
-      "return"
+      "return",
+      "require"
     )
   private val charEscapes: CodeSpanParser =
     StringLiteral.Escape.unicode ++ StringLiteral.Escape.char
