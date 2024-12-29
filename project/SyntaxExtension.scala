@@ -6,7 +6,8 @@ object SyntaxExtension extends ExtensionBundle {
   override def parsers: ParserBundle = new ParserBundle(
     syntaxHighlighters = Seq(
       ElixirSyntax,
-      HaxeSyntax
+      HaxeSyntax,
+      RubySyntax
     )
   )
 }

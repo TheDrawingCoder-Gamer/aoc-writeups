@@ -121,7 +121,8 @@ def part2(input: List[PolicyEntry]): Int =
 Haxe doesn't actually have a dedicated `Char` class, so I'm just comparing strings here.
 The closest is `charCodeAt` which returns an `Int`.
 
-The xor op here is self explainatory.
+`!=` is the same as an xor.
+
 ```haxe
 static public function part2(policies: Array<PolicyEntry>): Int {
     var count = 0;
@@ -129,7 +130,7 @@ static public function part2(policies: Array<PolicyEntry>): Int {
         final l = entry.password.charAt(entry.min - 1) == entry.char;
         final r = entry.password.charAt(entry.max - 1) == entry.char;
         // xor
-        if ((l || r) && !(l && r)) {
+        if (l != r) {
             count += 1;
         }
     }
