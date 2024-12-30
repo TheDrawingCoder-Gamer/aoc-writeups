@@ -32,7 +32,8 @@ extension[A] (f: A => A)
   }
 ```
 @:choice(haskell)
-Haskell comes with this function in its std. It's easy to use:
+The haskell version of the above code is so concise that I don't even bother making a special function for it.
+We iterate, and index into the `n`th position. 
 ```haskell
 iterate advance fish !! 80
 ```
@@ -173,4 +174,4 @@ This haskell code needs some explaining. To ensure all slots are in correct plac
 subtract 1 from the final count.
 @:@
 
-
+@:solution

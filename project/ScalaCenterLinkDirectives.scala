@@ -1,5 +1,6 @@
 import laika.api.bundle.{BlockDirectives, DirectiveRegistry, LinkDirectives, SpanDirectives, TemplateDirectives}
 import laika.ast.*
+import laika.ast.html.*
 import cats.syntax.all.*
 import laika.parse.SourceFragment
 
@@ -63,6 +64,52 @@ object ScalaCenterLinkDirectives extends DirectiveRegistry {
       }
 
     }
+
+    def bustedHeader(level: Int, text: String): Block =
+      BlockSequence(HTMLStartTag(s"h$level", List()), Text(text), HTMLEndTag(s"h$level"))
+
+
+    def browserPart(day: Int, year: Int, part2: Boolean): Block = {
+      BlockSequence(
+        Seq(
+        bustedHeader(3, if (part2) "Part 2" else "Part 1"),
+        BlockSequence(
+          HTMLStartTag("div", List(HTMLAttribute("id", List(Text(s"day$day${if (part2) "p2" else "p1"}")), Some('"')))),
+          HTMLEndTag("div"),
+          HTMLScriptElement(
+            List(HTMLAttribute("type", List(Text("module")), Some('"'))),
+            s"""
+               |import solver from "../src/js/solver.js"
+               |
+               |solver($day, "$year", $part2)
+               |""".stripMargin
+          )
+          )
+        )
+      )
+    }
+    val solutionDirective = BlockDirectives.create("solution") {
+      (cursor, source, attribute("hasPart1").as[Boolean].optional, attribute("hasPart2").as[Boolean].optional).mapN {
+        (cursor, source, hasPart1, hasPart2) =>
+        (cursor.config.get[Int]("aoc.day"), cursor.config.get[Int]("aoc.year")).tupled.fold(
+          e => InvalidBlock(e.message, source),
+          { case (day, year) =>
+            BlockSequence(
+              Seq(
+              bustedHeader(2, "Run it in the browser!"),
+                BlockSequence(
+                Seq(
+                  if (hasPart1.getOrElse(true)) Some(browserPart(day, year, part2 = false)) else None,
+                  if (hasPart2.getOrElse(true)) Some(browserPart(day, year, part2 = true)) else None
+                ).flatten
+                )
+              )
+            )
+          }
+        )
+      }
+    }
+
   }
 
   override def spanDirectives: Seq[SpanDirectives.Directive] = Seq(MySpanDirectives.scalaLinkDirective, MySpanDirectives.aocLinkDirective)
@@ -70,7 +117,8 @@ object ScalaCenterLinkDirectives extends DirectiveRegistry {
   override def blockDirectives: Seq[BlockDirectives.Directive] = Seq(
     MyBlockDirectives.ifValidYear,
     MyBlockDirectives.scalaLinkDirective,
-    MyBlockDirectives.aocLinkDirective)
+    MyBlockDirectives.aocLinkDirective,
+    MyBlockDirectives.solutionDirective)
 
   override def templateDirectives: Seq[TemplateDirectives.Directive] = Seq()
 

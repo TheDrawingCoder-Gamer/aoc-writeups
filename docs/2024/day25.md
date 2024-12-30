@@ -53,3 +53,7 @@ def part1(input: List[KeyOrLock]): Long =
 ```
 
 For Christmas, there is no part 2. Happy advent of code everyone, and see you next year!
+
+@:solution {
+    hasPart2 = false
+}

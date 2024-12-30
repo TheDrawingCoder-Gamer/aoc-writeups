@@ -487,3 +487,5 @@ def part2(str: String): Long =
 ```
 
 Here's my [full solution](https://github.com/TheDrawingCoder-Gamer/adventofcode2024/tree/e163baeaedcd90732b5e19f578a2faadeb1ef872/src/main/scala/Day15.scala). My solution uses my common package but for this page I rewrote them into the script.
+
+@:solution

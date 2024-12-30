@@ -201,3 +201,5 @@ def part1(input: List[Passport]): Int = input.count(_.isValid)
 
 def part2(input: List[Passport]): Int = input.count(_.isValidP2)
 ```
+
+@:solution

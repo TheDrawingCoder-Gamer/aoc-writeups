@@ -1,7 +1,7 @@
 import laika.config.{ChoiceConfig, MessageFilters, SelectionConfig, Selections, SyntaxHighlighting, TargetFormats}
 import laika.format.Markdown
 import laika.io.model.InputTree
-import cats.effect.IO
+import cats.effect.{IO => CIO}
 import laika.ast.DocumentType
 import laika.ast.Path.Root
 import laika.ast./
@@ -13,6 +13,12 @@ import scala.concurrent.duration.DurationDouble
 ThisBuild / scalaVersion := "3.6.2"
 
 lazy val root = project.in(file("."))
+
+lazy val solutions = project.in(file("solutions"))
+                            .enablePlugins(ScalaJSPlugin)
+                            .settings(
+                              libraryDependencies += "org.typelevel" %%% "cats-core" % "2.12.0",
+                            )
 
 val laikaMdocBuild = taskKey[Set[File]]("Build mdoc, then laika")
 val laikaMdocSite = taskKey[Unit]("Serve mdoc/laika site")
@@ -52,9 +58,16 @@ lazy val docs = project
                                   ChoiceConfig("scala", "Scala 3"),
                                   ChoiceConfig("ruby", "Ruby")
                                 )
-                              )),
-    laikaInputs := InputTree[IO]
+                              )).withRawContent,
+    laikaInputs := InputTree[CIO]
       .addDirectory(mdocOut.value.toString),
+    mdoc := {
+      val solverJs = (solver / Compile / fullLinkJSOutput).value / "main.js"
+      val dest = mdocOut.value / "src" / "js" / "solver.js"
+      IO.createDirectory(mdocOut.value / "src" / "js")
+      IO.copy(Seq(solverJs -> dest))
+      mdoc.evaluated
+    },
     laikaMdocBuild := Def.sequential((Compile / mdoc).toTask(" "), (Compile / laikaHTML)).value,
     laikaMdocSite := Def.sequential((Compile / mdoc).toTask(" "),
       Def.task[Unit] {
@@ -64,3 +77,14 @@ lazy val docs = project
     ).value,
     laikaTheme := theme
   )
+
+lazy val solver = project
+  .in(file("solver"))
+  .enablePlugins(ScalaJSPlugin)
+  .settings(
+    libraryDependencies ++= Seq(
+      "org.scala-js" %%% "scalajs-dom" % "2.8.0",
+      "com.raquo" %%% "laminar" % "17.1.0"
+    ),
+    scalaJSLinkerConfig ~= (_.withModuleKind(ModuleKind.ESModule))
+  ).dependsOn(solutions)

@@ -224,3 +224,5 @@ class Day02 {
 }
 ```
 @:@
+
+@:solution

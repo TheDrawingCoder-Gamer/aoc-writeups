@@ -173,3 +173,5 @@ def part2(input)
 end
 ```
 @:@
+
+@:solution

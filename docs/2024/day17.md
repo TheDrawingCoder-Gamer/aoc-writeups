@@ -176,3 +176,5 @@ def part2(str: String): Long =
 
 Here's my [actual day 17 solution](https://github.com/TheDrawingCoder-Gamer/adventofcode2024/tree/e163baeaedcd90732b5e19f578a2faadeb1ef872/src/main/scala/Day17.scala). 
 I have functions for testing here that helped find bugs.
+
+@:solution

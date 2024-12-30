@@ -107,3 +107,5 @@ def part2(input: Rules): Int =
         acc + (bag.amount * getBagAmount(bag.color))
   getBagAmount("shiny gold") - 1
 ```
+
+@:solution

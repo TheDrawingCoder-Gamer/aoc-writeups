@@ -157,3 +157,5 @@ def part2(input: (List[String], List[String])): Long =
 ```
 
 [Solution on github](https://github.com/TheDrawingCoder-Gamer/adventofcode2024/tree/e163baeaedcd90732b5e19f578a2faadeb1ef872/src/main/scala/Day19.scala)
+
+@:solution

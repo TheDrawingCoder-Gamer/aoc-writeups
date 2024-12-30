@@ -214,3 +214,5 @@ Final code:
 On my machine this only takes 3 seconds.
 
 [Full github code](https://github.com/TheDrawingCoder-Gamer/adventofcode2024/tree/e163baeaedcd90732b5e19f578a2faadeb1ef872/src/main/scala/Day22.scala)
+
+@:solution

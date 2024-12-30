@@ -309,3 +309,5 @@ def part2(str: String): Int =
 ```
 
 [My Solution](https://github.com/TheDrawingCoder-Gamer/adventofcode2024/tree/e163baeaedcd90732b5e19f578a2faadeb1ef872/src/main/scala/Day14.scala) on GitHub
+
+@:solution

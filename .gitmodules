@@ -1,0 +1,3 @@
+[submodule "solutions"]
+	path = solutions
+	url = https://github.com/TheDrawingCoder-Gamer/adventofcode2024.git

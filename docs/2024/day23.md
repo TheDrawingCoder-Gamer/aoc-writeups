@@ -130,3 +130,5 @@ def part2(conns: LANConnections): String =
 ```
 
 [Code on GitHub](https://github.com/TheDrawingCoder-Gamer/adventofcode2024/blob/4cafb9bd040cff15cc9cb687506e85b63c02c299/src/main/scala/gay/menkissing/advent/Day23.scala)
+
+@:solution
