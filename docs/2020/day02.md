@@ -4,6 +4,8 @@ aoc.day = 2
 
 # Day 2: Password Philosophy
 
+@:include(/inc/solutionHeader.md)
+
 Here's another Haxe day, but today's Haxe code was rewritten from the ground up because the original was very confusing.
 
 ## Solution Summary
