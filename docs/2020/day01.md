@@ -156,7 +156,4 @@ class Day01 {
 ```
 @:@
 
-## Run it in the browser!
-
-## Pa
 @:solution(false)
