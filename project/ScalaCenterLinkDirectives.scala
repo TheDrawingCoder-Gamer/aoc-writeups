@@ -94,17 +94,13 @@ object ScalaCenterLinkDirectives extends DirectiveRegistry {
         (cursor.config.get[Int]("aoc.day"), cursor.config.get[Int]("aoc.year")).tupled.fold(
           e => InvalidBlock(e.message, source),
           { case (day, year) =>
-            Section(
-              Header(2, "Run it in the browser!"),
-              Seq(
-                BlockSequence(
-                Seq(
+              BlockSequence(
+                content = Seq(Header(2, "Run it in the browser!")) ++ Seq[Option[Block]](
+
                   if (hasPart1.getOrElse(true)) Some(browserPart(day, year, part2 = false)) else None,
                   if (hasPart2.getOrElse(true)) Some(browserPart(day, year, part2 = true)) else None
                 ).flatten
-                )
               )
-            )
           }
         )
       }
