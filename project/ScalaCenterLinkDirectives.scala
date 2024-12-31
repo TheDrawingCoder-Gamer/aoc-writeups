@@ -46,7 +46,7 @@ object ScalaCenterLinkDirectives extends DirectiveRegistry {
           year => BlockSequence(if (year >= 2021) bodyContent else Seq())
         )
       }
-    }
+    }.allowCursorInBuildPhase
     val scalaLinkDirective = BlockDirectives.create("scalaLink") {
       (cursor, source).mapN { (cursor, source) =>
         linkFromYD(cursor, source, scalaCenterLink).fold(
@@ -70,9 +70,9 @@ object ScalaCenterLinkDirectives extends DirectiveRegistry {
 
 
     def browserPart(day: Int, year: Int, part2: Boolean): Block = {
-      BlockSequence(
+      Section(
+        Header(3, if (part2) "Part 2" else "Part 1").withId(if (part2) "part2-run" else "part1-run"),
         Seq(
-        bustedHeader(3, if (part2) "Part 2" else "Part 1"),
         BlockSequence(
           HTMLStartTag("div", List(HTMLAttribute("id", List(Text(s"day$day${if (part2) "p2" else "p1"}")), Some('"')))),
           HTMLEndTag("div"),
@@ -94,9 +94,9 @@ object ScalaCenterLinkDirectives extends DirectiveRegistry {
         (cursor.config.get[Int]("aoc.day"), cursor.config.get[Int]("aoc.year")).tupled.fold(
           e => InvalidBlock(e.message, source),
           { case (day, year) =>
-            BlockSequence(
+            Section(
+              Header(2, "Run it in the browser!"),
               Seq(
-              bustedHeader(2, "Run it in the browser!"),
                 BlockSequence(
                 Seq(
                   if (hasPart1.getOrElse(true)) Some(browserPart(day, year, part2 = false)) else None,
@@ -108,7 +108,7 @@ object ScalaCenterLinkDirectives extends DirectiveRegistry {
           }
         )
       }
-    }
+    }.allowCursorInBuildPhase
 
   }
 
