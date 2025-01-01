@@ -60,7 +60,9 @@ lazy val docs = project
                                   ChoiceConfig("scala", "Scala 3"),
                                   ChoiceConfig("ruby", "Ruby")
                                 )
-                              )).withRawContent,
+                              )).withRawContent
+                              // required bc of jank
+                              .withMessageFilters(MessageFilters.forVisualDebugging),
     laikaInputs := InputTree[CIO]
       .addDirectory(mdocOut.value.toString),
     mdoc := {
