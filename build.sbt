@@ -14,13 +14,6 @@ ThisBuild / scalaVersion := "3.6.2"
 
 lazy val root = project.in(file("."))
 
-lazy val solutions = project.in(file("solutions"))
-                            .enablePlugins(ScalaJSPlugin)
-                            .settings(
-                              libraryDependencies += "org.typelevel" %%% "cats-core" % "2.12.0",
-                              libraryDependencies += "org.typelevel" %%% "cats-parse" % "1.0.0",
-                              libraryDependencies += "org.typelevel" %%% "cats-collections-core" % "0.9.9",
-                            )
 
 val laikaMdocBuild = taskKey[Set[File]]("Build mdoc, then laika")
 val laikaMdocSite = taskKey[Unit]("Serve mdoc/laika site")
@@ -88,7 +81,8 @@ lazy val solver = project
   .settings(
     libraryDependencies ++= Seq(
       "org.scala-js" %%% "scalajs-dom" % "2.8.0",
-      "com.raquo" %%% "laminar" % "17.1.0"
+      "com.raquo" %%% "laminar" % "17.1.0",
+      "gay.menkissing" %%% "adventofcode2024" % "0.1.0-SNAPSHOT"
     ),
     scalaJSLinkerConfig ~= (_.withModuleKind(ModuleKind.ESModule))
-  ).dependsOn(solutions)
+  )

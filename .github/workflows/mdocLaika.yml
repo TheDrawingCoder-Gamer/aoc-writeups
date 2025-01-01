@@ -50,7 +50,11 @@ jobs:
         with:
           version: 1.10.6
       - name: Generate Site
-        run: sbt docs/laikaMdocBuild
+        run: 
+          cd solutions
+          sbt publishLocal
+          cd ..
+          sbt docs/laikaMdocBuild
 
       - name: Setup Pages
         id: pages
