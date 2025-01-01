@@ -6,10 +6,10 @@ import scala.util.{Try, Failure, Success}
 import scala.scalajs.js.annotation.JSExportTopLevel
 
 object Solver:
-  extension[A, B, C] (self: ProblemAdv[A, B, C])
-    def generic: ProblemAdv[Any, Any, Any] = self.asInstanceOf[ProblemAdv[Any, Any, Any]]
+  extension[A, B, C] (self: HalfDay[A, B])
+    def generic: HalfDay[Any, Any] = self.asInstanceOf[HalfDay[Any, Any]]
 
-  private val solutions2020: Map[String, ProblemAdv[Any, Any, Any]] =
+  private val solutions2020: Map[String, HalfDay[Any, Any]] =
     Map(
       "day1" -> y2020.Day01y2020.generic,
       "day2" -> y2020.Day02y2020.generic,
@@ -19,7 +19,7 @@ object Solver:
       "day6" -> y2020.Day06y2020.generic,
       "day7" -> y2020.Day07y2020.generic
     )
-  private val solutions2021: Map[String, ProblemAdv[Any, Any, Any]] =
+  private val solutions2021: Map[String, HalfDay[Any, Any]] =
     Map(
       "day1"  -> y2021.Day01y2021.generic,
       "day6"  -> y2021.Day6y2021.generic,
@@ -27,17 +27,26 @@ object Solver:
       "day20" -> y2021.Day20y2021.generic,
       "day21" -> y2021.Day21y2021.generic
     )
-  private val solutions2022: Map[String, ProblemAdv[Any, Any, Any]] =
+  private val solutions2022: Map[String, HalfDay[Any, Any]] =
     Map(
       "day1" -> y2022.Day01y2022.generic,
       "day2" -> y2022.Day02y2022.generic,
       "day3" -> y2022.Day03y2022.generic,
       "day4" -> y2022.Day04y2022.generic,
       "day5" -> y2022.Day05y2022.generic,
-      "day6" -> y2022.Day06y2022.generic
+      "day6" -> y2022.Day06y2022.generic,
+      "day7" -> y2022.Day07y2022.generic,
+      "day8" -> y2022.Day08y2022.generic,
+      "day9" -> y2022.Day09y2022.generic,
+      "day10" -> y2022.Day10y2022.generic,
+      "day12" -> y2022.Day12y2022.generic,
+      "day20" -> y2022.Day20y2022.generic,
+      "day21" -> y2022.Day21y2022.generic,
+      "day22" -> y2022.Day22y2022.generic,
+      "day25" -> y2022.Day25y2022.generic
     )
-  private val solutions2024: Map[String, ProblemAdv[Any, Any, Any]] =
-    Map[String, ProblemAdv[Any, Any, Any]](
+  private val solutions2024: Map[String, HalfDay[Any, Any]] =
+    Map(
       "day1" -> Day1.generic,
       "day2" -> Day2.generic,
       "day3" -> Day3.generic,
@@ -51,21 +60,21 @@ object Solver:
       "day11" -> Day11.generic,
       "day12" -> Day12.generic,
       "day13" -> Day13.generic,
-      "day14" -> Day14.asInstanceOf[ProblemAdv[Any, Any, Any]],
-      "day15" -> Day15.asInstanceOf[ProblemAdv[Any, Any, Any]],
+      "day14" -> Day14.generic,
+      "day15" -> Day15.generic,
       "day16" -> Day16.generic,
-      "day17" -> Day17.asInstanceOf[ProblemAdv[Any, Any, Any]],
-      "day18" -> Day18.asInstanceOf[ProblemAdv[Any, Any, Any]],
-      "day19" -> Day19.asInstanceOf[ProblemAdv[Any, Any, Any]],
-      "day20" -> Day20.asInstanceOf[ProblemAdv[Any, Any, Any]],
+      "day17" -> Day17.generic,
+      "day18" -> Day18.generic,
+      "day19" -> Day19.generic,
+      "day20" -> Day20.generic,
       "day21" -> Day21.generic,
-      "day22" -> Day22.asInstanceOf[ProblemAdv[Any, Any, Any]],
-      "day23" -> Day23.asInstanceOf[ProblemAdv[Any, Any, Any]],
+      "day22" -> Day22.generic,
+      "day23" -> Day23.generic,
       "day24" -> Day24.generic,
-      "day25" -> Day25.asInstanceOf[ProblemAdv[Any, Any, Any]]
+      "day25" -> Day25.generic
     )
 
-  private val solutions: Map[String, Map[String, ProblemAdv[Any, Any, Any]]] =
+  private val solutions: Map[String, Map[String, HalfDay[Any, Any]]] =
     Map(
       "2020" -> solutions2020,
       "2021" -> solutions2021,
@@ -74,34 +83,38 @@ object Solver:
     )
   def paddedDay(day: Int): String =
     if (day < 10) s"0$day" else day.toString
-  private def doSolve(puzzleId: String, year: String, part2: Boolean): Unit =
-    for 
+
+  def getSolutionFunc(year: String, puzzleId: String, part2: Boolean): Option[String => Any] =
+    for
       solutionOfYear <- solutions.get(year)
       solution <- solutionOfYear.get(puzzleId)
+      solutionFunc <-
+        if !part2 then
+          Some((it: String) => solution.part1(solution.parse(it)))
+        else
+          solution match
+            case s: ProblemAdv[Any, Any, Any] => Some((it: String) => s.part2(s.parse(it)))
+            case _ => None
+    yield solutionFunc
+
+  private def doSolve(puzzleId: String, year: String, part2: Boolean): Unit =
+    for 
+      solutionFunc <- getSolutionFunc(year, puzzleId, part2)
       div <- Option(document.getElementById(puzzleId + (if part2 then "p2" else "p1")))
     do
       render(div,
-        solverElementSide(it =>
-          if !part2 then
-            solution.part1(solution.parse(it))
-          else
-            solution.part2(solution.parse(it))
-      ))
+        solverElementSide(if part2 then 2 else 1, solutionFunc))
   
   @JSExportTopLevel("default")
   def solver(day: Int, year: String, part2: Boolean): Unit =
     doSolve(s"day$day", year, part2)
   
-  private def solverElement(solution: ProblemAdv[Any, Any, Any]): Element = {
-    div(
-      solverElementSide(it => solution.part1(solution.parse(it))),
-      solverElementSide(it => solution.part2(solution.parse(it)))
-    )
-  }
-  private def solverElementSide(solution: String => Any): Element =
+
+  private def solverElementSide(part: Int, solution: String => Any): Element =
     val input = Var("")
     val answer = EventBus[Try[Any]]()
     div(
+      h3(s"Part $part"),
       textArea(
         onChange.mapToValue --> input,
         width := "100%",

@@ -13,10 +13,16 @@ object ScalaCenterLinkDirectives extends DirectiveRegistry {
       error => (s"Invalid year: $error", source),
       { case (year, day) =>  getLink(year, day) }
     )
+
+  def paddedDay(day: Int): String =
+    if (day < 10)
+      s"0$day"
+    else
+      day.toString
   def aocLink(year: Int, day: Int): SpanLink =
     SpanLink(Seq(Text(s"Advent of Code $year, Day $day")), ExternalTarget(s"https://adventofcode.com/$year/day/$day"))
   def scalaCenterLink(year: Int, day: Int): SpanLink =
-    SpanLink(Seq(Text(s"Scala Center Advent of Code $year, Day $day")), ExternalTarget(s"https://scalacenter.github.io/scala-advent-of-code${if (year != 2021) s"/$year" else ""}/puzzles/day$day"))
+    SpanLink(Seq(Text(s"Scala Center Advent of Code $year, Day $day")), ExternalTarget(s"https://scalacenter.github.io/scala-advent-of-code${if (year != 2021) s"/$year" else ""}/puzzles/day${if (year != 2021) paddedDay(day) else day.toString}"))
   object MySpanDirectives {
     import SpanDirectives.dsl._
     val scalaLinkDirective = SpanDirectives.create("scalaLink") {
@@ -70,24 +76,23 @@ object ScalaCenterLinkDirectives extends DirectiveRegistry {
 
 
     def browserPart(day: Int, year: Int, part2: Boolean): Block = {
-      Section(
-        Header(3, if (part2) "Part 2" else "Part 1").withId(if (part2) "part2-run" else "part1-run"),
-        Seq(
-        BlockSequence(
-          HTMLStartTag("div", List(HTMLAttribute("id", List(Text(s"day$day${if (part2) "p2" else "p1"}")), Some('"')))),
-          HTMLEndTag("div"),
-          HTMLScriptElement(
-            List(HTMLAttribute("type", List(Text("module")), Some('"'))),
-            s"""
-               |import solver from "../src/js/solver.js"
-               |
-               |solver($day, "$year", $part2)
-               |""".stripMargin
-          )
-          )
+    BlockSequence(
+      HTMLStartTag("div", List(HTMLAttribute("id", List(Text(s"day$day${if (part2) "p2" else "p1"}")), Some('"')))),
+      HTMLEndTag("div"),
+      HTMLScriptElement(
+        List(HTMLAttribute("type", List(Text("module")), Some('"'))),
+        s"""
+           |import solver from "../src/js/solver.js"
+           |
+           |solver($day, "$year", $part2)
+           |""".stripMargin
         )
       )
+
+
     }
+
+
     val solutionDirective = BlockDirectives.create("solution") {
       (cursor, source, attribute("hasPart1").as[Boolean].optional, attribute("hasPart2").as[Boolean].optional).mapN {
         (cursor, source, hasPart1, hasPart2) =>

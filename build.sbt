@@ -18,6 +18,8 @@ lazy val solutions = project.in(file("solutions"))
                             .enablePlugins(ScalaJSPlugin)
                             .settings(
                               libraryDependencies += "org.typelevel" %%% "cats-core" % "2.12.0",
+                              libraryDependencies += "org.typelevel" %%% "cats-parse" % "1.0.0",
+                              libraryDependencies += "org.typelevel" %%% "cats-collections-core" % "0.9.9",
                             )
 
 val laikaMdocBuild = taskKey[Set[File]]("Build mdoc, then laika")
