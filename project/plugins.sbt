@@ -1,6 +1,6 @@
 addSbtPlugin("org.scalameta" % "sbt-mdoc" % "2.6.2")
 addSbtPlugin("org.scala-js" % "sbt-scalajs" % "1.17.0")
-addSbtPlugin("org.typelevel" % "laika-sbt" % "1.3.0")
+addSbtPlugin("org.typelevel" % "laika-sbt" % "1.3.1")
 
 // make
 addSbtPlugin("pl.project13.scala" % "sbt-jmh" % "0.4.7")
