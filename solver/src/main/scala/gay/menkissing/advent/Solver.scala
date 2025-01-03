@@ -17,7 +17,10 @@ object Solver:
       "day4" -> y2020.Day04y2020.generic,
       "day5" -> y2020.Day05y2020.generic,
       "day6" -> y2020.Day06y2020.generic,
-      "day7" -> y2020.Day07y2020.generic
+      "day7" -> y2020.Day07y2020.generic,
+      "day8" -> y2020.Day08y2020.generic,
+      "day9" -> y2020.Day09y2020.generic,
+      "day10" -> y2020.Day10y2020.generic
     )
   private val solutions2021: Map[String, HalfDay[Any, Any]] =
     Map(
@@ -50,6 +53,13 @@ object Solver:
       "day21" -> y2022.Day21y2022.generic,
       "day22" -> y2022.Day22y2022.generic,
       "day25" -> y2022.Day25y2022.generic
+    )
+  private val solutions2023: Map[String, HalfDay[Any, Any]] =
+    Map(
+      "day1" -> y2023.Day01y2023.generic,
+      "day2" -> y2023.Day02y2023.generic,
+      "day3" -> y2023.Day03y2023.generic,
+      "day4" -> y2023.Day04y2023.generic
     )
   private val solutions2024: Map[String, HalfDay[Any, Any]] =
     Map(
@@ -85,6 +95,7 @@ object Solver:
       "2020" -> solutions2020,
       "2021" -> solutions2021,
       "2022" -> solutions2022,
+      "2023" -> solutions2023,
       "2024" -> solutions2024
     )
   def paddedDay(day: Int): String =
@@ -153,7 +164,6 @@ object Solver:
       s"Answer is: ",
       pre(
         code(
-          className := "codeBlockLines_node_modules-@docusaurus-theme-classic-lib-next-theme-CodeBlock-styles-module",
           answer.toString.linesIterator.toSeq.map(l => span(l, br()))
         )
       )
