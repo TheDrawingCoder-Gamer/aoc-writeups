@@ -40,7 +40,7 @@ static function parse(str: String): Array<Array<Bool>> {
 @:@
 
 Then let's define a function to test a slope. The solution between languages differs a lot because I really
-wanted to show off the functional programming aspect of scala.
+wanted to show off the functional programming aspect of Scala.
 
 @:select(languageHaxe)
 @:choice(scala)

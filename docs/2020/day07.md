@@ -6,7 +6,7 @@ aoc.day = 7
 
 @:include(/inc/solutionHeader.md)
 
-Today _was_ a Haxe day but my solution from 2021 was incompetent and honestly I'm tired of rewriting all my things, especially
+Today _was_ a Haxe day but my solution from 2021 was incompetent, and honestly I'm tired of rewriting all my things, especially
 when the Scala is so elegant. 
 
 

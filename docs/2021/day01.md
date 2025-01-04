@@ -6,8 +6,8 @@ aoc.day = 1
 
 @:include(/inc/solutionHeader.md)
 
-The first two days I actually wrote my solution in Elixir but I quickly got tired of it. As a treat though, I've updated my Elixir code
-to a more sensible solution so it can stand alongside my scala.
+The first two days I actually wrote my solution in Elixir, but I quickly got tired of it. As a treat though, I've updated my Elixir code
+to a more sensible solution so it can stand alongside my Scala.
 
 ## Solution Summary
 
@@ -17,7 +17,7 @@ to a more sensible solution so it can stand alongside my scala.
 
 ## Part 1
 
-Parsing is easy (in scala, at least). Elixir forces you to always handle errors but frankly I could care less here.
+Parsing is easy (in Scala, at least). Elixir forces you to always handle errors but frankly I could care less here.
 
 @:select(languageElixir)
 @:choice(scala)

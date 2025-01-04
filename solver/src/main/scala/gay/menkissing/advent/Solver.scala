@@ -26,6 +26,7 @@ object Solver:
     Map(
       "day1"  -> y2021.Day01y2021.generic,
       "day2"  -> y2021.Day02y2021.generic,
+      "day3"  -> y2021.Day03y2021.generic,
       "day6"  -> y2021.Day6y2021.generic,
       "day19" -> y2021.Day19y2021.generic,
       "day20" -> y2021.Day20y2021.generic,

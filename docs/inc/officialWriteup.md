@@ -1,4 +1,4 @@
-My writeup is on the official scala center advent of code site: @:scalaLink()
+My writeup is on the official Scala Center Advent of Code site: @:scalaLink()
 
 You can still run the solution here:
 

@@ -6,14 +6,14 @@
 
 ## Solution Summary
 
-1. Parse input a `List[(Dir, Int)]`
+1. Parse input into a `List[(Dir, Int)]`
 2. Calculate depth and x, and multiply them
    * For part 1, this is fairly simple as it's just a simple fold
    * This requires a bit more effort for part 2, but it's not too hard
 
 ## Part 1
 
-Today is an elixir day and I bothered to port it today, so we get to do both!
+Today is an Elixir day and I bothered to port it today, so we get to do both!
 
 Let's define the `Dir` and how to parse it first:
 
@@ -33,7 +33,7 @@ object Dir:
       case "up" => Dir.Up
 ```
 @:choice(elixir)
-Elixir is a dynamic language so I didn't bother making an enum - I'm just using atoms here, which is something
+Elixir is a dynamic language, so I didn't bother making an enum - I'm just using atoms here, which is something
 that I _think_ is from Lisp. It's symbols that are prefixed with `:`, so we're using `:forward`,
 `:down`, and `:up` here.
 @:@
@@ -75,33 +75,34 @@ end
 ```
 @:@
 
-Now part 1, I approached it differently between languages. Scala is just a fold getting the sum of each one,
-and Elixir is similar but it instead iterates 3 times with 3 different filters, which is obviously slower but was easier for me to do.
+Part 1 is just a `foldLeft` (or a `reduce` in Elixir, same thing).
 
 @:select(languageElixir)
 @:choice(scala)
 ```scala 3
 def part1(input: List[(Dir, Int)]): Int =
-   val (horz, down, up) = input.foldLeft((0, 0, 0)):
-      case ((horz, down, up), (dir, n)) =>
+   val (horz, depth) = input.foldLeft((0, 0, 0)):
+      case ((horz, depth), (dir, n)) =>
          dir match
-            case Dir.Forward => (horz + n, down, up)
-            case Dir.Down => (horz, down + n, up)
-            case Dir.Up => (horz, down, up + n)
-
-   val depth = down - up
+            case Dir.Forward => (horz + n, depth)
+            case Dir.Down => (horz, depth + n)
+            case Dir.Up => (horz, depth - n)
 
    depth * horz
 ```
 @:choice(elixir)
 ```elixir
 def part1(input) do
-  horz = for {:forward, num} <- input do num end |> Enum.sum
-  down = for {:down,    num} <- input do num end |> Enum.sum
-  up   = for {:up,      num} <- input do num end |> Enum.sum
-  depth = down - up
+  {horz, depth} = input |> Enum.reduce({0, 0}, fn x, {h, d} -> 
+    case x do
+      {:forward, num} -> {h + num, d}
+      {:down   , num} -> {h, d + num}
+      {:up     , num} -> {h, d - num}
+    end
+  end)
   depth * horz
 end
+
 ```
 @:@
 
@@ -176,12 +177,14 @@ def parse(input: String): List[(Dir, Int)] =
 
 
 def part1(input: List[(Dir, Int)]): Int =
-  val (horz, down, up) = input.foldLeft((0, 0, 0)):
-    case ((horz, down, up), (dir, n)) =>
-      dir match
-        case Dir.Forward => (horz + n, down, up)
-        case Dir.Down => (horz, down + n, up)
-        case Dir.Up => (horz, down, up + n)
+   val (horz, depth) = input.foldLeft((0, 0)):
+      case ((horz, depth), (dir, n)) =>
+         dir match
+            case Dir.Forward => (horz + n, depth)
+            case Dir.Down => (horz, depth + n)
+            case Dir.Up => (horz, depth - n)
+
+   depth * horz
 
   val depth = down - up
 
@@ -225,10 +228,13 @@ defmodule Day02 do
   end
 
   def part1(input) do
-    horz = for {:forward, num} <- input do num end |> Enum.sum
-    down = for {:down,    num} <- input do num end |> Enum.sum
-    up   = for {:up,      num} <- input do num end |> Enum.sum
-    depth = down - up
+    {horz, depth} = input |> Enum.reduce({0, 0}, fn x, {h, d} -> 
+      case x do
+        {:forward, num} -> {h + num, d}
+        {:down   , num} -> {h, d + num}
+        {:up     , num} -> {h, d - num}
+      end
+    end)
     depth * horz
   end
 

@@ -1,3 +1,13 @@
 #sidebar .nav-list li.nav-header.level1 {
     color: var(--primary-color);
 }
+
+:root {
+    --messages-info: #4636d8;
+    --messages-info-light: #211d47;
+    --messages-info-text: #8880e5;
+}
+
+.callout.info {
+    color: var(--messages-info-text);
+}
