@@ -34,7 +34,7 @@ lazy val docs = project
   .dependsOn(root)
   .enablePlugins(MdocPlugin, LaikaPlugin)
   .settings(
-    laikaExtensions := Seq(Markdown.GitHubFlavor, SyntaxHighlighting, ScalaCenterLinkDirectives, SyntaxExtension),
+    laikaExtensions := Seq(Markdown.GitHubFlavor, SyntaxHighlighting, ScalaCenterLinkDirectives, SyntaxExtension, LaTeXBundle),
     laikaConfig := LaikaConfig.defaults
                               .withConfigValue(Selections(
                                 SelectionConfig("language",

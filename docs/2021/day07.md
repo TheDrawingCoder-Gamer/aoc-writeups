@@ -2,6 +2,8 @@
 
 # Day 7: The Treachery of Whales
 
+@:include(/inc/solutionHeader.md)
+
 This day is a fun one because the solution (for part 2 at least) isn't immediately obvious. My Haskell solution was incorrect for part 2,
 with a code comment stating that it was solved with GHCi. I was able to find a solution though.
 
@@ -105,7 +107,11 @@ all crabs are the closest to, which is the average.
 There's a small hitch though: average works with floating point numbers while the point must be integral. We'll test the points
 from the floor and ceiling of the average.
 
-Let's calculate the average of the positions:
+Let's calculate the average of the positions, which is just
+
+@:latex
+\frac{n1 + n2 + ... + nN}{N}
+@:@
 
 @:select(language)
 @:choice(scala)
@@ -124,8 +130,8 @@ average l =
 ```
 @:@
 
-Then let's calculate the distance, which is just a sum of all sumtorials (sumtorial is like factorial, but replaced `*` with `+`. This is also called
-the nth triangle number.)
+Then let's calculate the distance, which is just a sum of all sumtorials (sumtorial is the sum of all natural numbers
+preceding and including this number. This is also called the nth triangle number.)
 
 @:select(language)
 @:choice(scala)

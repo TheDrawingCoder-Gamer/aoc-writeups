@@ -2,6 +2,8 @@
 
 # Day 5: Hydrothermal Venture
 
+@:include(/inc/solutionHeader.md)
+
 Skipping over day 4 for now (the original folder is empty), let's move on to Day 5.
 
 ## Solution Summary
