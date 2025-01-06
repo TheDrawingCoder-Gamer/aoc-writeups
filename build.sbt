@@ -4,9 +4,8 @@ import laika.io.model.InputTree
 import cats.effect.{IO => CIO}
 import laika.ast.DocumentType
 import laika.ast.Path.Root
-import laika.ast./
 import laika.helium.Helium
-import laika.theme.config.Color
+import laika.theme.config.{Color, StyleAttributes, CrossOrigin}
 
 import scala.concurrent.duration.DurationDouble
 
@@ -27,14 +26,16 @@ val theme = Helium.defaults
       Color.hex("600f23"),
       (Color.hex("FA8072"), Color.hex("fcbbb3"))
     ).site.darkMode.disabled
-                  .site.internalCSS(Root / "assets" / "extra.css").build
+      .site.internalCSS(Root / "assets" / "extra.css")
+      .site.externalCSS("https://cdn.jsdelivr.net/npm/katex@0.16.19/dist/katex.min.css",
+    StyleAttributes.defaults.withIntegrity("sha384-7lU0muIg/i1plk7MgygDUp3/bNRA65orrBub4/OSWHECgwEsY83HaS1x3bljA/XV").withCrossOrigin(CrossOrigin.Anonymous)).build
 
 lazy val docs = project
   .in(file("website"))
   .dependsOn(root)
   .enablePlugins(MdocPlugin, LaikaPlugin)
   .settings(
-    laikaExtensions := Seq(Markdown.GitHubFlavor, SyntaxHighlighting, ScalaCenterLinkDirectives, SyntaxExtension, LaTeXBundle),
+    laikaExtensions := Seq(Markdown.GitHubFlavor, SyntaxHighlighting, ScalaCenterLinkDirectives, SyntaxExtension, LaTeXBundle, BenchmarkBundle),
     laikaConfig := LaikaConfig.defaults
                               .withConfigValue(Selections(
                                 SelectionConfig("language",

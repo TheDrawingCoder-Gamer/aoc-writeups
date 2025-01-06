@@ -11,7 +11,7 @@ import org.scilab.forge.jlatexmath.cyrillic.CyrillicRegistration
 import org.scilab.forge.jlatexmath.greek.GreekRegistration
 
 import java.awt.{Color, Dimension, Insets}
-import java.io.{ByteArrayOutputStream, OutputStreamWriter}
+import java.io.{ByteArrayInputStream, ByteArrayOutputStream, OutputStreamWriter}
 import java.nio.charset.StandardCharsets
 import javax.swing.JLabel
 import laika.parse
@@ -25,36 +25,14 @@ case class LaTeXBlock(content: String, options: Options = Options.empty) extends
 }
 
 object LaTeXBundle extends DirectiveRegistry {
+  import scala.sys.process.*
   def renderLaTeX(input: String): String = {
-    val domImpl = GenericDOMImplementation.getDOMImplementation
-    val svgNS = "http://www.w3.org/2000/svg"
-    val doc = domImpl.createDocument(svgNS, "svg", null)
-    val ctx = SVGGeneratorContext.createDefault(doc)
-
-    val g2 = new SVGGraphics2D(ctx, false)
-
-    DefaultTeXFont.registerAlphabet(new CyrillicRegistration())
-    DefaultTeXFont.registerAlphabet(new GreekRegistration())
-
-    val formula = new TeXFormula(input)
-    val icon = formula.createTeXIcon(TeXConstants.STYLE_DISPLAY, 20)
-    icon.setInsets(new Insets(5, 5, 5, 5))
-    g2.setSVGCanvasSize(new Dimension(icon.getIconWidth, icon.getIconHeight))
-
-    val label = new JLabel()
-    label.setForeground(new Color(0, 0, 0))
-    icon.paintIcon(label, g2, 0, 0)
-
-    val useCSS = true
+    val is = new ByteArrayInputStream(input.getBytes(StandardCharsets.UTF_8))
     val os = new ByteArrayOutputStream()
-    val out = new OutputStreamWriter(os, "UTF-8")
+    Process("npx katex -d -T --format html").#<(is).#>(os).!<
 
-    g2.stream(out, useCSS)
     os.flush()
-
-    val str = new String(os.toByteArray, StandardCharsets.UTF_8)
-    os.close()
-    str
+    new String(os.toByteArray, StandardCharsets.UTF_8)
   }
 
   val custom: PartialFunction[(TagFormatter, Element), String] = {

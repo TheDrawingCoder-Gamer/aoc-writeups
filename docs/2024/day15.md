@@ -488,4 +488,17 @@ def part2(str: String): Long =
 
 Here's my [full solution](https://github.com/TheDrawingCoder-Gamer/adventofcode2024/tree/e163baeaedcd90732b5e19f578a2faadeb1ef872/src/main/scala/Day15.scala). My solution uses my common package but for this page I rewrote them into the script.
 
+@:benchmarkSection {
+    p1 = {
+        jvm = [14.193, 0.925],
+        js = [37.427, 3.302],
+        native = [19.417, 0.870]
+    },
+    p2 = {
+        jvm = [10.301, 0.879],
+        js = [46.411, 4.673],
+        native = [14.361, 0.425]
+    }
+}
+
 @:solution

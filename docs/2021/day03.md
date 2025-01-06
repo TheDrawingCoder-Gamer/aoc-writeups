@@ -208,4 +208,17 @@ def part2(input: (List[Int], Int)): Int =
   o2.head * co2.head
 ```
 
+@:benchmarkSection {
+p1 = {
+jvm = [1.284, 0.137],
+js = [1.372, 0.085],
+native = [0.280, 0.001]
+},
+p2 = {
+jvm = [1.513, 0.146],
+js = [2.459, 0.336],
+native = [0.216, 0]
+}
+}
+
 @:solution

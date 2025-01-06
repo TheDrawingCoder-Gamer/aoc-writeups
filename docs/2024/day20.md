@@ -239,4 +239,17 @@ def part2(input: RaceTrack): Int =
 
 [Solution on github](https://github.com/TheDrawingCoder-Gamer/adventofcode2024/tree/e163baeaedcd90732b5e19f578a2faadeb1ef872/src/main/scala/Day20.scala)
 
+@:benchmarkSection {
+    p1 = {
+        jvm = [1204.433, 15.171],
+        js = [1625.689, 6.604],
+        native = [3678.584, 7.629]
+    },
+    p2 = {
+        jvm = [2351.833, 15.475],
+        js = [2174.306, 82.285],
+        native = [4004.255, 21.184]
+    }
+}
+
 @:solution

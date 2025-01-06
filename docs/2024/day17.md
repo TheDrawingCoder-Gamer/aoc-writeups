@@ -177,4 +177,17 @@ def part2(str: String): Long =
 Here's my [actual day 17 solution](https://github.com/TheDrawingCoder-Gamer/adventofcode2024/tree/e163baeaedcd90732b5e19f578a2faadeb1ef872/src/main/scala/Day17.scala). 
 I have functions for testing here that helped find bugs.
 
+@:benchmarkSection {
+   p1 = {
+      jvm = [0.722, 0.090],
+      js = [0.593, 0.015],
+      native = [0.044, 0.002]
+   },
+   p2 = {
+      jvm = [1.371, 0.129],
+      js = [2.122, 0.032],
+      native = [0.620, 0.029]
+   }
+}
+
 @:solution

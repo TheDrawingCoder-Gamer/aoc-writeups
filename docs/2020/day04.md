@@ -202,4 +202,17 @@ def part1(input: List[Passport]): Int = input.count(_.isValid)
 def part2(input: List[Passport]): Int = input.count(_.isValidP2)
 ```
 
+@:benchmarkSection {
+    p1 = {
+        jvm = [10.613, 2.532],
+        js = [21.586, 3.374],
+        native = [9.611, 0.372]
+    },
+    p2 = {
+        jvm = [10.131, 2.511],
+        js = [26.568, 4.220],
+        native = [9.206, 0.103]
+    }
+}
+
 @:solution

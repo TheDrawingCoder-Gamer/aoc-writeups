@@ -54,6 +54,7 @@ jobs:
           cd solutions
           sbt publishLocal
           cd ..
+          npm install
           sbt docs/laikaMdocBuild
 
       - name: Setup Pages

@@ -2,7 +2,16 @@
 
 # Day 18: Boiling Boulders
 
-@:embed(/inc/noWriteup.md)
-This one is surprisingly complicated...
-@:@
+@:include(/inc/solutionHeader.md)
 
+This one is surprisingly complicated...
+
+@:benchmarkSection {
+p1 = {
+jvm = [10.536, 1.550],
+js = [34.324, 1.948],
+native = [5.339, 0.347]
+},
+}
+
+@:solution

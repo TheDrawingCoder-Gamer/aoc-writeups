@@ -69,6 +69,8 @@ object ScalaCenterLinkDirectives extends DirectiveRegistry {
         )
       }
 
+
+
     }
 
     def bustedHeader(level: Int, text: String): Block =
