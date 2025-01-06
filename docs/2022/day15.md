@@ -4,8 +4,21 @@
 
 @:include(/inc/solutionHeader.md)
 
-Be careful running this one, it takes 30s on JVM, so I can only
-imagine how painfully slow it will be on JS.
+This one took a bit to optimize; ended up having to plagiarize the optimization from the Scala Center writeup.
 
-This one doesn't have a writeup yet, and I've forcefully disabled the run in browser section because I've
-never observed the JS compilation finishing, and I don't want to stall your browser.
+@:benchmarkSection {
+    p1 = {
+        jvm = [1731.283, 191.029],
+        js = [849.076, 170.324],
+        native = [51.427, 0.055]
+    },
+    p2 = {
+        jvm = [2395997.047, 57324.073],
+        js = [9896581.787, 33106.563],
+        native = [6545453.547, 5342.771]
+    },
+    unit = us
+    p2unit = ms
+}
+
+@:solution

@@ -4,6 +4,8 @@
 
 @:include(/inc/solutionHeader.md)
 
+Part 2 here genuinely melts my brain.
+
 @:benchmarkSection {
 p1 = {
 jvm = [182.623, 3.916],
