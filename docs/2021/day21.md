@@ -352,6 +352,7 @@ override def part2(input: ProblemState): BigInt =
 p1 = {
 jvm = [3.019, 0.197],
 js = [4.053, 0.129],
+native = [0.696, 0.047]
 },
 p2 = {
 jvm = [5194.870, 48.727],

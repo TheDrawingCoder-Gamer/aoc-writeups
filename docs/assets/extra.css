@@ -12,27 +12,3 @@
     color: var(--messages-info-text);
 }
 
-@font-face {
-    font-family: jlm_cmr10;
-    src:url("./fonts/jlm_cmr10.woff2") format("woff2");
-}
-
-@font-face {
-    font-family: jlm_cmmi10;
-    src:url("./fonts/jlm_cmmi10.woff2") format("woff2");
-}
-
-@font-face {
-    font-family: jlm_cmsy10;
-    src:url("./fonts/jlm_cmsy10.woff2") format("woff2");
-}
-
-@font-face {
-    font-family: jlm_cmex10;
-    src:url("./fonts/jlm_cmex10.woff2") format("woff2");
-}
-
-svg * {
-    fill: var(--primary-color) !important;
-
-}

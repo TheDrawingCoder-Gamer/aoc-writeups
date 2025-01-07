@@ -56,6 +56,8 @@ object Solver:
       "day20" -> y2022.Day20y2022.generic,
       "day21" -> y2022.Day21y2022.generic,
       "day22" -> y2022.Day22y2022.generic,
+      "day23" -> y2022.Day23y2022.generic,
+      "day24" -> y2022.Day24y2022.generic,
       "day25" -> y2022.Day25y2022.generic
     )
   private val solutions2023: Map[String, HalfDay[Any, Any]] =

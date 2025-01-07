@@ -28,7 +28,17 @@ val theme = Helium.defaults
     ).site.darkMode.disabled
       .site.internalCSS(Root / "assets" / "extra.css")
       .site.externalCSS("https://cdn.jsdelivr.net/npm/katex@0.16.19/dist/katex.min.css",
-    StyleAttributes.defaults.withIntegrity("sha384-7lU0muIg/i1plk7MgygDUp3/bNRA65orrBub4/OSWHECgwEsY83HaS1x3bljA/XV").withCrossOrigin(CrossOrigin.Anonymous)).build
+    StyleAttributes.defaults.withIntegrity("sha384-7lU0muIg/i1plk7MgygDUp3/bNRA65orrBub4/OSWHECgwEsY83HaS1x3bljA/XV").withCrossOrigin(CrossOrigin.Anonymous))
+      .site.inlineJS(
+    """
+      |window.onload = function() {
+      |  const ls = document.getElementById("sidebar").getElementsByClassName("active");
+      |  if (ls.length > 0) {
+      |    ls[0].scrollIntoView({"block":"center"});
+      |  }
+      |}
+      |""".stripMargin)
+                  .build
 
 lazy val docs = project
   .in(file("website"))
