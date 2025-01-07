@@ -4,8 +4,6 @@
 
 @:include(/inc/solutionHeader.md)
 
-Skipping over day 4 for now (the original folder is empty), let's move on to Day 5.
-
 ## Solution Summary
 
 1. Parse input into a `List[Line]`
