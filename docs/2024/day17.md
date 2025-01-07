@@ -179,14 +179,14 @@ I have functions for testing here that helped find bugs.
 
 @:benchmarkSection {
    p1 = {
-      jvm = [0.722, 0.090],
-      js = [0.593, 0.015],
-      native = [0.044, 0.002]
+      jvm = [592.507, 45.215,us],
+      js = [334.562, 22.598,us],
+      native = [25.957, 0.012,us]
    },
    p2 = {
-      jvm = [1.371, 0.129],
-      js = [2.122, 0.032],
-      native = [0.620, 0.029]
+      jvm = [1684.569, 273.713,us],
+      js = [1877.831, 76.182,us],
+      native = [646.477, 54.377,us]
    }
 }
 

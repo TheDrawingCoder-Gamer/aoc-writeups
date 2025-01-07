@@ -6,6 +6,7 @@ import laika.ast.DocumentType
 import laika.ast.Path.Root
 import laika.helium.Helium
 import laika.theme.config.{Color, StyleAttributes, CrossOrigin}
+import BenchmarkBundle.implicits.*
 
 import scala.concurrent.duration.DurationDouble
 
@@ -64,7 +65,14 @@ lazy val docs = project
                                   ChoiceConfig("scala", "Scala 3"),
                                   ChoiceConfig("ruby", "Ruby")
                                 )
-                              )).withRawContent
+                              ))
+                              .withConfigValue(BenchmarkNames(
+                                  "jvm" -> "JVM",
+                                  "js" -> "JS",
+                                  "native" -> "Native"
+                                )
+                              )
+                              .withRawContent
                               // required bc of jank
                               .withMessageFilters(MessageFilters.forVisualDebugging),
     laikaInputs := InputTree[CIO]

@@ -357,8 +357,8 @@ native = [0.696, 0.047]
 p2 = {
 jvm = [5194.870, 48.727],
 js = [15555.385, 60.759],
+asUnit = s
 },
-p2unit = "s"
 }
 
 The Native benchmark for part 2 crashes with an OOM.
