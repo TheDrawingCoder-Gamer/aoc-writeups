@@ -4,16 +4,20 @@
 
 @:include(/inc/solutionHeader.md)
 
-I've only completed the first part because of the mental torture device part 2 is.
-
-Seriously, it's no joke. Maybe some day I'll get around to it.
+I finally got around to part 2 (with some inspiration from other solutions) and it's FINE...
+I don't know how generic my implementation is (I tried to implement every net, but I can't really test it)
 
 @:benchmarkSection {
 p1 = {
-jvm =[35.673, 2.536],
-js =  [92.562, 2.966],
-native = [36.094, 0.080]
+jvm =[33.310, 0.738],
+js =  [67.564, 2.312],
+native = [36.962, 0.770]
 },
+p2 = {
+jvm = [12.966, 0.520],
+js = [16.929, 0.180],
+native = [8.226, 0.142]
+}
 
 }
 
