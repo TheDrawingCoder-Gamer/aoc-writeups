@@ -69,7 +69,10 @@ lazy val docs = project
                               .withConfigValue(BenchmarkNames(
                                   "jvm" -> "JVM",
                                   "js" -> "JS",
-                                  "native" -> "Native"
+                                  "native" -> "Native",
+                                  "haskell" -> "Haskell",
+                                  "elixir" -> "Elixir",
+                                  "haxecpp" -> "Haxe (C++)"
                                 )
                               )
                               .withRawContent
