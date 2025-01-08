@@ -37,7 +37,7 @@ object Computer:
     (c1 << 5) + c2
 
   def startsWithT(n: Int): Boolean =
-    (n >> 5).toChar == 't'
+    ((n >> 5) + 'a').toChar == 't'
 
   def unapply(n: Int): String =
     val c1 = ((n >> 5) + 'a').toChar
@@ -143,7 +143,7 @@ object Computer:
     (c1 << 5) + c2
 
   def startsWithT(n: Int): Boolean =
-    (n >> 5).toChar == 't'
+    ((n >> 5) + 'a').toChar == 't'
 
   def unapply(n: Int): String =
     val c1 = ((n >> 5) + 'a').toChar
