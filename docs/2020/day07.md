@@ -108,17 +108,6 @@ def part2(input: Rules): Int =
   getBagAmount("shiny gold") - 1
 ```
 
-@:benchmarkSection {
-p1 = {
-jvm = [11.984, 2.288],
-js = [36.119, 1.036],
-native = [9.816, 0.010]
-},
-p2 = {
-jvm = [9.417, 1.338],
-js = [20.582, 2.881],
-native = [5.117, 0.208]
-}
-}
+@:benchmarkSection
 
 @:solution

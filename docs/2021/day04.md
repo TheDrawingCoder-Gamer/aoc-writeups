@@ -149,17 +149,6 @@ def part2(input: (List[Int], List[BingoCard])): Int =
   ._1.get
 ```
 
-@:benchmarkSection {
-    p1 = {
-        jvm = [8.291, 0.311]
-        js = [7.567, 0.075]
-        native = [7.156, 0.188]
-    },
-    p2 = {
-        jvm = [18.019, 0.274],
-        js = [60.343, 1.260]
-        native = [30.359, 0.160]
-    }
-}
+@:benchmarkSection
 
 @:solution

@@ -14,17 +14,6 @@ def process(input: String, size: Int): Int =
   + size
 ```
 
-@:benchmarkSection {
-p1 = {
-jvm = [6.629, 0.501],
-js = [18.094, 1.207],
-native = [2.128, 0.099]
-},
-p2 = {
-jvm = [10.288, 2.129],
-js = [32.922, 0.428],
-native = [9.184, 0.116]
-}
-}
+@:benchmarkSection
 
 @:solution

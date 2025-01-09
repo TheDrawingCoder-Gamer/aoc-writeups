@@ -158,17 +158,6 @@ def part2(input: (List[String], List[String])): Long =
 
 [Solution on github](https://github.com/TheDrawingCoder-Gamer/adventofcode2024/tree/e163baeaedcd90732b5e19f578a2faadeb1ef872/src/main/scala/Day19.scala)
 
-@:benchmarkSection {
-    p1 = {
-        jvm = [8.023, 0.072],
-        js = [13.052, 0.041],
-        native = [9.968, 0.115]
-    },
-    p2 = {
-        jvm = [58.248, 2.887],
-        js = [105.289, 0.554],
-        native = [183.361, 0.843]
-    }
-}
+@:benchmarkSection
 
 @:solution

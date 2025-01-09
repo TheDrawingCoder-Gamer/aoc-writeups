@@ -376,17 +376,6 @@ part2 = countDanger M.empty
 ```
 @:@
 
-@:benchmarkSection {
-p1 = {
-jvm = [34.996, 4.220],
-js = [206.294, 25.722],
-native = [32.475, 2.551]
-},
-p2 = {
-jvm = [68.885, 6.212],
-js = [268.457, 4.073],
-native = [80.481, 10.690]
-}
-}
+@:benchmarkSection
 
 @:solution

@@ -188,17 +188,6 @@ def part2(conns: LANConnections): String =
 
 [Code on GitHub](https://github.com/TheDrawingCoder-Gamer/adventofcode2024/blob/4cafb9bd040cff15cc9cb687506e85b63c02c299/src/main/scala/gay/menkissing/advent/Day23.scala)
 
-@:benchmarkSection {
-    p1 = {
-        jvm = [10.388, 1.019],
-        js = [13.862, 1.151],
-        native = [6.611, 0.185]
-    },
-    p2 = {
-        jvm = [17.497, 3.799],
-        js = [25.193, 0.936],
-        native = [9.713, 0.032]
-    }
-}
+@:benchmarkSection
 
 @:solution

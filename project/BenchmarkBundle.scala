@@ -12,21 +12,19 @@ import scala.concurrent.duration.TimeUnit
 
 
 case class BenchmarkTiming(mean: Double, error: Double, unit: Option[TimeUnit] = None, convertTo: Option[TimeUnit] = None) {
-  def convertTiming(defaultUnit: TimeUnit, defaultDest: TimeUnit): BenchmarkTiming = {
-    val source = unit.getOrElse(defaultUnit)
-    val dest = convertTo.getOrElse(defaultDest)
+  def convertTiming(overrideConvertTo: Option[TimeUnit]): BenchmarkTiming = {
+    val source = unit.getOrElse(TimeUnit.MILLISECONDS)
+    val dest = overrideConvertTo.orElse(convertTo).getOrElse(TimeUnit.MILLISECONDS)
     BenchmarkTiming(BenchmarkBundle.convertTimeUnit(mean, source, dest), BenchmarkBundle.convertTimeUnit(error, source, dest), Some(dest))
   }
 }
 
 
-case class Benchmark(values: Map[String, BenchmarkTiming], unit: Option[TimeUnit] = None, convertTo: Option[TimeUnit] = None) {
-  def convertTiming(defaultUnit: TimeUnit, defaultDest: TimeUnit): Benchmark = {
-    val source = unit.getOrElse(defaultUnit)
-    val dest = convertTo.getOrElse(defaultDest)
+case class Benchmark(values: Map[String, BenchmarkTiming]) {
+  def convertTiming(overrideConvertTo: Option[TimeUnit]): Benchmark = {
+
     Benchmark(
-      values.mapValues(_.convertTiming(source, dest)),
-        Some(dest)
+      values.mapValues(_.convertTiming(overrideConvertTo))
     )
   }
 }
@@ -47,8 +45,6 @@ object BenchmarkBundle extends DirectiveRegistry {
     else amount * to.convert(1, from)
   }
 
-  def convertMapTiming(map: Map[String, BenchmarkTiming], from: TimeUnit, to: TimeUnit): Map[String, BenchmarkTiming] =
-    map.mapValues(y => y.convertTiming(from, to))
 
   object implicits {
     import laika.api.config.ConfigValue.*
@@ -56,7 +52,7 @@ object BenchmarkBundle extends DirectiveRegistry {
       listMapDecoder[String].map(BenchmarkNames.apply)
 
     implicit val benchmarkNameEncoder: ConfigEncoder[BenchmarkNames] =
-      ConfigEncoder.map[String].contramap(_.value)
+     listMapEncoder[String].contramap(_.value)
 
     implicit val benchmarkNamesDefaultKey: DefaultKey[BenchmarkNames] = DefaultKey("benchmark_names")
 
@@ -69,6 +65,23 @@ object BenchmarkBundle extends DirectiveRegistry {
         case x => Left(DecodingFailed(s"$x is not a valid time unit."))
       }
 
+    def tuple2Decoder[A, B](implicit lDecoder: ConfigDecoder[A], rDecoder: ConfigDecoder[B]): ConfigDecoder[(A, B)] = {
+      case Traced(av: ArrayValue, origin) =>
+        if (av.values.lengthCompare(2) != 0) {
+          Left(DecodingFailed(s"Expected length of values to be 2, got ${av.values.length}"))
+        } else {
+          lDecoder(Traced(av.values.head, origin)).flatMap { l =>
+            rDecoder(Traced(av.values.tail.head, origin)).map { r =>
+              (l, r)
+            }
+          }
+        }
+      case Traced(invalid, _) => Left(ConfigError.InvalidType("Array", invalid))
+    }
+    def tuple2Encoder[A, B](implicit lEncoder: ConfigEncoder[A], rEncoder: ConfigEncoder[B]): ConfigEncoder[(A, B)] = { case (a, b) =>
+      ArrayValue(Seq(lEncoder(a), rEncoder(b)))
+    }
+
     implicit def listMapDecoder[B](implicit valueDecoder: ConfigDecoder[B]): ConfigDecoder[ListMap[String, B]] = {
       case Traced(ov: ObjectValue, origin) =>
         val (errors, results) = ov.values.toList.map { field =>
@@ -77,16 +90,13 @@ object BenchmarkBundle extends DirectiveRegistry {
         if (errors.nonEmpty)
           Left(DecodingFailed(s"One or more errors decoding map values: ${errors.mkString(", ")}"))
         else Right(ListMap(results*))
+      case tv @ Traced(av: ArrayValue, origin) =>
+        ConfigDecoder.seq[(String, B)](tuple2Decoder[String, B]).map(it => ListMap(it*))(tv)
       case Traced(invalid, _) => Left(ConfigError.InvalidType("Object", invalid))
     }
 
-    implicit def listMapEncoder[B](implicit valueEncoder: ConfigEncoder[B]): ConfigEncoder[ListMap[String, B]] = { t =>
-      ObjectValue {
-        t.map { case (x, y) =>
-          Field(x, valueEncoder(y))
-        }.toSeq
-      }
-    }
+    implicit def listMapEncoder[B](implicit valueEncoder: ConfigEncoder[B]): ConfigEncoder[ListMap[String, B]] =
+      ConfigEncoder.seq[(String, B)](tuple2Encoder[String, B]).contramap(_.toSeq)
 
     implicit val benchmarkTimingDecoder: ConfigDecoder[BenchmarkTiming] = new ConfigDecoder[BenchmarkTiming] {
 
@@ -123,6 +133,7 @@ object BenchmarkBundle extends DirectiveRegistry {
 
       }
     }
+    /*
     implicit val benchmarkDecoder: ConfigDecoder[Benchmark] = {
       case Traced(ObjectValue(values), origin) =>
         type ConfigErrorEither[B] = Either[ConfigError, B]
@@ -143,6 +154,7 @@ object BenchmarkBundle extends DirectiveRegistry {
         }
       case Traced(invalid, _) => Left(ConfigError.InvalidType("Object", invalid))
     }
+     */
   }
 
   import implicits.*
@@ -173,8 +185,8 @@ object BenchmarkBundle extends DirectiveRegistry {
   }
 
   def benchmarkAsTable(config: ListMap[String, String], unit: TimeUnit, benchmark: Benchmark): Block = {
-    val daUnit = benchmark.unit.getOrElse(unit)
-    val rows = config.keysIterator.flatMap { it =>
+    val daUnit = unit
+    val rows = config.flatMap { case (it, _) =>
       benchmark.values.get(it).map { y =>
         rowForTiming(config(it), daUnit)(y)
       }
@@ -185,7 +197,7 @@ object BenchmarkBundle extends DirectiveRegistry {
     } else {
       Table(
         rows.head,
-        rows.tail: _*
+        rows.tail*
       ).copy(head = TableHead(Seq(
         Row(
           Cell(CellType.HeadCell, Seq(BlockSequence(""))),
@@ -201,6 +213,7 @@ object BenchmarkBundle extends DirectiveRegistry {
   object MyBlockDirectives {
     import BlockDirectives.dsl.*
 
+    /*
     val benchmarkSection = BlockDirectives.create("benchmarkSection") {
       (cursor, attribute("unit").as[TimeUnit].optional.map(_.getOrElse(TimeUnit.MILLISECONDS)),
         attribute("asUnit").as[TimeUnit].optional,
@@ -238,6 +251,47 @@ object BenchmarkBundle extends DirectiveRegistry {
                 ) ++ sections
               )
             }
+          }
+        )
+      }
+    }.allowCursorInBuildPhase
+
+     */
+    val benchmarkSection = BlockDirectives.create("benchmarkSection") {
+      (cursor, source, attribute("overrideP1").as[TimeUnit].optional, attribute("overrideP2").as[TimeUnit].optional)
+        .mapN { (cursor, source, p1Override, p2Override) =>
+        (cursor.config.get[Int]("aoc.year"), cursor.config.get[Int]("aoc.day"), cursor.config.get[BenchmarkNames]).tupled.fold(
+          err => InvalidBlock(err.message, source),
+          { case (year, day, names) =>
+            val p1 = AllBenches.constructBenchmarkFor(names.value, day, year, 1)
+            val p2 = AllBenches.constructBenchmarkFor(names.value, day, year, 2)
+            val sections = Seq(
+              p1.map(benchmark =>
+                BlockSequence(
+                  Seq(
+                    Header(3, "Part 1"),
+                    // Should never display with new stuff
+                    benchmarkAsTable(names.value, TimeUnit.DAYS, benchmark.convertTiming(p1Override))
+                  )
+                )
+              ),
+              p2.map(benchmark =>
+                BlockSequence(
+                  Seq(
+                    Header(3, "Part 2"),
+                    benchmarkAsTable(names.value, TimeUnit.DAYS, benchmark.convertTiming(p2Override))
+                  )
+                )
+              )
+            ).flatten
+            if (sections.nonEmpty)
+              BlockSequence(
+                Seq(
+                  Header(2, "Benchmark")
+                ) ++ sections
+              )
+            else
+              BlockSequence(Seq())
           }
         )
       }

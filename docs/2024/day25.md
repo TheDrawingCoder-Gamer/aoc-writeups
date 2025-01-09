@@ -54,12 +54,6 @@ def part1(input: List[KeyOrLock]): Long =
 
 For Christmas, there is no part 2. Happy advent of code everyone, and see you next year!
 
-@:benchmarkSection {
-    p1 = {
-        jvm = [7.682, 0.127],
-        js = [39.464, 0.780],
-        native = [12.867, 0.606]
-    }
-}
+@:benchmarkSection
 
 @:solution

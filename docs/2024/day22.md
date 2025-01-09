@@ -215,17 +215,6 @@ On my machine this only takes 3 seconds.
 
 [Full github code](https://github.com/TheDrawingCoder-Gamer/adventofcode2024/tree/e163baeaedcd90732b5e19f578a2faadeb1ef872/src/main/scala/Day22.scala)
 
-@:benchmarkSection {
-    p1 = {
-        jvm = [18.017, 2.661],
-        js = [28.162, 0.199],
-        native = [26.581, 0.046]
-    },
-    p2 = {
-        jvm = [2684.277, 10.613],
-        js = [16471.363, 162.693],
-        native = [5058.162, 140.996]
-    }
-}
+@:benchmarkSection
 
 @:solution

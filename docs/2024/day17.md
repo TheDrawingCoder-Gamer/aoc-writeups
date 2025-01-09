@@ -178,16 +178,8 @@ Here's my [actual day 17 solution](https://github.com/TheDrawingCoder-Gamer/adve
 I have functions for testing here that helped find bugs.
 
 @:benchmarkSection {
-   p1 = {
-      jvm = [592.507, 45.215,us],
-      js = [334.562, 22.598,us],
-      native = [25.957, 0.012,us]
-   },
-   p2 = {
-      jvm = [1684.569, 273.713,us],
-      js = [1877.831, 76.182,us],
-      native = [646.477, 54.377,us]
-   }
+   overrideP1 = us
+   overrideP2 = us
 }
 
 @:solution

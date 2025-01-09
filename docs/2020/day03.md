@@ -184,17 +184,5 @@ class Day03 {
 ```
 @:@
 
-@:benchmarkSection {
-    p1 = {
-        jvm = [0.384, 0.037],
-        js = [1.321, 0.043],
-        native = [0.169, 0.002]
-    },
-    p2 = {
-        jvm = [0.664, 0.043],
-        js = [1.957, 0.130],
-        native = [0.186, 0.001]
-    }
-}
-
+@:benchmarkSection
 @:solution

@@ -174,17 +174,6 @@ end
 ```
 @:@
 
-@:benchmarkSection {
-p1 = {
-jvm = [1.611, 0.208],
-js = [2.566, 0.192],
-native = [0.675, 0.092]
-},
-p2 = {
-jvm = [5.670, 0.331],
-js = [5.893, 1.405],
-native = [1.190, 0.041]
-}
-}
+@:benchmarkSection
 
 @:solution
