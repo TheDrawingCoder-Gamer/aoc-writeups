@@ -174,6 +174,9 @@ end
 ```
 @:@
 
-@:benchmarkSection
+@:benchmarkSection {
+  overrideP1 = us
+  overrideP2 = us
+}
 
 @:solution
