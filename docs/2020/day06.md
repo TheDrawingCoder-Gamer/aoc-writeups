@@ -6,7 +6,7 @@ aoc.day = 6
 
 @:include(/inc/solutionHeader.md)
 
-Today is another Ruby day. Again, my original solution is hilariously incompetent so I just rewrote it.
+Today is another Ruby day. Again, my original solution is hilariously incompetent, so I just rewrote it.
 
 ## Solution Summary
 
@@ -18,7 +18,7 @@ Today is another Ruby day. Again, my original solution is hilariously incompeten
 
 ## Part 1
 
-We'll be making use of `Set`, because this sounds a lot like bitwise operations but we aren't using a bitmap (because that would
+We'll be making use of `Set`, because this sounds a lot like bitwise operations, but we aren't using a bitmap (because that would
 require an ugly conversion). Sets let us do these kind of operations on arbitrary "Sets" of objects.
 
 Let's parse our input:

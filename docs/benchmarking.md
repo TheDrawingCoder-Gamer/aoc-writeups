@@ -11,6 +11,4 @@ Some notes from a naive interpretation of results so far: JVM is surprisingly go
 (meaning we allocate a lot of objects that die quickly.) JS and Native aren't very good at this, so in solutions where
 we do a lot of immutable shenanigans JS and Native can fall behind quickly.
 
-For Haskell, I use criterion. It sort of outputs the mean error (you can input a confidence interval, and it will
-output a lower and upper bound on the mean) so I just use that, however this may not have the same semantics as
-my Scala code. 
+Haskell uses a similar custom benchmarker, and I've made sure to force the results.
