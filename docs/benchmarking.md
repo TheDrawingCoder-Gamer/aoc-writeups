@@ -12,3 +12,5 @@ Some notes from a naive interpretation of results so far: JVM is surprisingly go
 we do a lot of immutable shenanigans JS and Native can fall behind quickly.
 
 Haskell uses a similar custom benchmarker, and I've made sure to force the results.
+
+Elixir uses Bungee, and then I convert its results with a special function in scala to make the statistics match.
