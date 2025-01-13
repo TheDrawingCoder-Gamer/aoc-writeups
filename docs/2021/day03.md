@@ -208,6 +208,9 @@ def part2(input: (List[Int], Int)): Int =
   o2.head * co2.head
 ```
 
-@:benchmarkSection
+@:benchmarkSection {
+   overrideP1 = us
+   overrideP2 = us
+}
 
 @:solution

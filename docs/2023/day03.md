@@ -6,6 +6,9 @@
 
 For some reason the title of today half spoils part 2.
 
-@:benchmarkSection
+@:benchmarkSection {
+    overrideP1 = us
+    overrideP2 = us
+}
 
 @:solution

@@ -7,6 +7,9 @@ aoc.day = 1
 @:include(/inc/solutionHeader.md)
 
 
-@:benchmarkSection
+@:benchmarkSection {
+    overrideP1 = us
+    overrideP2 = us
+}
 
 @:solution

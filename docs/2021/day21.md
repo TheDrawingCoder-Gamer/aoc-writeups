@@ -349,6 +349,7 @@ override def part2(input: ProblemState): BigInt =
 ```
 
 @:benchmarkSection {
+overrideP1 = us
 overrideP2 = s
 }
 

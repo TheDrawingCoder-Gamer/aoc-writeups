@@ -6,6 +6,9 @@
 
 Wow! Another bytecode interpreter! Now with solving the halting problem!
 
-@:benchmarkSection
+@:benchmarkSection {
+    overrideP1 = us
+    overrideP2 = us
+}
 
 @:solution

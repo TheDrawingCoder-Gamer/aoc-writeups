@@ -6,6 +6,9 @@
 
 This is the last day solved in 2021.
 
-@:benchmarkSection
+@:benchmarkSection {
+    overrideP1 = us
+    overrideP2 = us
+}
 
 @:solution

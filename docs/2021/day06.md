@@ -261,6 +261,8 @@ part2 fish =
 ```
 @:@
 
-@:benchmarkSection
+@:benchmarkSection {
+   overrideP2 = us
+}
 
 @:solution

@@ -8,6 +8,8 @@ aoc.day = 21
 
 From all the people in the discord and from my experience, this was the "final boss" of this year.
 
-@:benchmarkSection
+@:benchmarkSection {
+    overrideP1 = us
+}
 
 @:solution

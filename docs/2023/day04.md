@@ -6,6 +6,9 @@
 
 Gambling... with the prize of more gambling!
 
-@:benchmarkSection
+@:benchmarkSection {
+    overrideP1 = us
+    overrideP2 = us
+}
 
 @:solution

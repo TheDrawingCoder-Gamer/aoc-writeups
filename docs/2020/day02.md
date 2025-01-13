@@ -225,6 +225,9 @@ class Day02 {
 ```
 @:@
 
-@:benchmarkSection
+@:benchmarkSection {
+   overrideP1 = us
+   overrideP2 = us
+}
 
 @:solution

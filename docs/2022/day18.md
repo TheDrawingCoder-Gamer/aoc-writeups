@@ -6,6 +6,8 @@
 
 This one is surprisingly complicated...
 
-@:benchmarkSection
+@:benchmarkSection {
+    overrideP1 = us
+}
 
 @:solution
