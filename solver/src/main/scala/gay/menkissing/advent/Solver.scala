@@ -32,6 +32,11 @@ object Solver:
       "day5"  -> y2021.Day05y2021,
       "day6"  -> y2021.Day6y2021,
       "day7"  -> y2021.Day07y2021,
+      "day8"  -> y2021.Day08y2021,
+      "day9"  -> y2021.Day09y2021,
+      "day10" -> y2021.Day10y2021,
+      "day11" -> y2021.Day11y2021,
+      "day12" -> y2021.Day12y2021,
       "day19" -> y2021.Day19y2021,
       "day20" -> y2021.Day20y2021,
       "day21" -> y2021.Day21y2021
