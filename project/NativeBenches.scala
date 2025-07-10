@@ -111,11 +111,89 @@ object NativeBenches {
       convertTo = Some(TimeUnit.MILLISECONDS)
     ),    
     "day10y2020p1" -> BenchmarkTiming(
-      mean = 15203.630134115674d,
-      error = 24.868780730562726d,
+      mean = 49753.72688369249d,
+      error = 70.20530190979134d,
       unit = Some(TimeUnit.NANOSECONDS),
       convertTo = Some(TimeUnit.MILLISECONDS)
     ),    
+    "day10y2020p2" -> BenchmarkTiming(
+      mean = 45781.83923414269d,
+      error = 106.82942839097223d,
+      unit = Some(TimeUnit.NANOSECONDS),
+      convertTo = Some(TimeUnit.MILLISECONDS)
+    ),    
+    "day11y2020p1" -> BenchmarkTiming(
+      mean = 1.259669503E9d,
+      error = 3.205140042912448E7d,
+      unit = Some(TimeUnit.NANOSECONDS),
+      convertTo = Some(TimeUnit.MILLISECONDS)
+    ),    
+    "day11y2020p2" -> BenchmarkTiming(
+      mean = 2.6496695115789473E8d,
+      error = 4743503.184158815d,
+      unit = Some(TimeUnit.NANOSECONDS),
+      convertTo = Some(TimeUnit.MILLISECONDS)
+    ),    
+    "day12y2020p1" -> BenchmarkTiming(
+      mean = 83518.00730326821d,
+      error = 139.39723516177767d,
+      unit = Some(TimeUnit.NANOSECONDS),
+      convertTo = Some(TimeUnit.MILLISECONDS)
+    ),    
+    "day12y2020p2" -> BenchmarkTiming(
+      mean = 82531.37860983868d,
+      error = 280.5364026323013d,
+      unit = Some(TimeUnit.NANOSECONDS),
+      convertTo = Some(TimeUnit.MILLISECONDS)
+    ),    
+    "day13y2020p1" -> BenchmarkTiming(
+      mean = 2998701.2603706974d,
+      error = 3449.816289597984d,
+      unit = Some(TimeUnit.NANOSECONDS),
+      convertTo = Some(TimeUnit.MILLISECONDS)
+    ),    
+    "day13y2020p2" -> BenchmarkTiming(
+      mean = 16960.350296668188d,
+      error = 60.97515242795939d,
+      unit = Some(TimeUnit.NANOSECONDS),
+      convertTo = Some(TimeUnit.MILLISECONDS)
+    ),    
+    "day14y2020p1" -> BenchmarkTiming(
+      mean = 2510194.1929967427d,
+      error = 1443.3306919897168d,
+      unit = Some(TimeUnit.NANOSECONDS),
+      convertTo = Some(TimeUnit.MILLISECONDS)
+    ),    
+    "day14y2020p2" -> BenchmarkTiming(
+      mean = 2.4405109914285713E8d,
+      error = 4148900.1094045527d,
+      unit = Some(TimeUnit.NANOSECONDS),
+      convertTo = Some(TimeUnit.MILLISECONDS)
+    ),    
+    "day15y2020p1" -> BenchmarkTiming(
+      mean = 39535.28736248994d,
+      error = 87.58483887811786d,
+      unit = Some(TimeUnit.NANOSECONDS),
+      convertTo = Some(TimeUnit.MILLISECONDS)
+    ),    
+    "day15y2020p2" -> BenchmarkTiming(
+      mean = 9.223930465E8d,
+      error = 2.5779434667577807E7d,
+      unit = Some(TimeUnit.NANOSECONDS),
+      convertTo = Some(TimeUnit.MILLISECONDS)
+    ),    
+    "day16y2020p1" -> BenchmarkTiming(
+      mean = 871701.5473922902d,
+      error = 1931.7664273745022d,
+      unit = Some(TimeUnit.NANOSECONDS),
+      convertTo = Some(TimeUnit.MILLISECONDS)
+    ),    
+    "day16y2020p2" -> BenchmarkTiming(
+      mean = 1719938.0063572791d,
+      error = 5254.2459683706265d,
+      unit = Some(TimeUnit.NANOSECONDS),
+      convertTo = Some(TimeUnit.MILLISECONDS)
+    ),
     "day1y2021p1" -> BenchmarkTiming(
       mean = 618692.3176144244d,
       error = 691.6227712697079d,

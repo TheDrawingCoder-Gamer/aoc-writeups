@@ -1,12 +1,12 @@
-{% aoc.day = 9 %}
+{% aoc.day = 14 %}
 
-# Day 9: Encoding Error
+# Day 14: Docking Data
 
 @:include(/inc/solutionHeader.md)
 
 @:benchmarkSection {
     overrideP1 = us
-    overrideP2 = us
+    overrideP2 = ms
 }
 
 @:solution

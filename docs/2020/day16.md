@@ -1,6 +1,6 @@
-{% aoc.day = 9 %}
+{% aoc.day = 16 %}
 
-# Day 9: Encoding Error
+# Day 16: Ticket Translation
 
 @:include(/inc/solutionHeader.md)
 

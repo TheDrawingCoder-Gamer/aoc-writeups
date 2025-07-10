@@ -1,6 +1,6 @@
-{% aoc.day = 9 %}
+{% aoc.day = 10 %}
 
-# Day 9: Encoding Error
+# Day 10: Adapter Array
 
 @:include(/inc/solutionHeader.md)
 

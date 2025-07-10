@@ -21,7 +21,13 @@ object Solver:
       "day7" -> y2020.Day07y2020,
       "day8" -> y2020.Day08y2020,
       "day9" -> y2020.Day09y2020,
-      "day10" -> y2020.Day10y2020
+      "day10" -> y2020.Day10y2020,
+      "day11" -> y2020.Day11y2020,
+      "day12" -> y2020.Day12y2020,
+      "day13" -> y2020.Day13y2020,
+      "day14" -> y2020.Day14y2020,
+      "day15" -> y2020.Day15y2020,
+      "day16" -> y2020.Day16y2020
     )
   private val solutions2021: Map[String, HalfDay[?, ?]] =
     Map(
@@ -30,7 +36,7 @@ object Solver:
       "day3"  -> y2021.Day03y2021,
       "day4"  -> y2021.Day04y2021,
       "day5"  -> y2021.Day05y2021,
-      "day6"  -> y2021.Day6y2021,
+      "day6"  -> y2021.Day06y2021,
       "day7"  -> y2021.Day07y2021,
       "day8"  -> y2021.Day08y2021,
       "day9"  -> y2021.Day09y2021,
@@ -76,15 +82,15 @@ object Solver:
     )
   private val solutions2024: Map[String, HalfDay[?, ?]] =
     Map(
-      "day1" -> Day1,
-      "day2" -> Day2,
-      "day3" -> Day3,
-      "day4" -> Day4,
-      "day5" -> Day5,
-      "day6" -> Day6,
-      "day7" -> Day7,
-      "day8" -> Day8,
-      "day9" -> Day9,
+      "day1" -> Day01,
+      "day2" -> Day02,
+      "day3" -> Day03,
+      "day4" -> Day04,
+      "day5" -> Day05,
+      "day6" -> Day06,
+      "day7" -> Day07,
+      "day8" -> Day08,
+      "day9" -> Day09,
       "day10" -> Day10,
       "day11" -> Day11,
       "day12" -> Day12,

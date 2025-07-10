@@ -1,6 +1,6 @@
-{% aoc.day = 9 %}
+{% aoc.day = 12 %}
 
-# Day 9: Encoding Error
+# Day 12: Rain Risk
 
 @:include(/inc/solutionHeader.md)
 

@@ -1,6 +1,6 @@
-{% aoc.day = 9 %}
+{% aoc.day = 13 %}
 
-# Day 9: Encoding Error
+# Day 13: Shuttle Search
 
 @:include(/inc/solutionHeader.md)
 
