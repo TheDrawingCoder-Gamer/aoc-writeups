@@ -1,14 +1,10 @@
 import cats.data.NonEmptySet
-import org.scilab.forge.jlatexmath.{DefaultTeXFont, TeXConstants, TeXFormula}
 import laika.api.bundle.{BlockDirectives, DirectiveRegistry, ExtensionBundle, LinkDirectives, RenderOverrides, SpanDirectives, TemplateDirectives}
 import laika.ast.*
 import laika.ast.html.*
 import cats.syntax.all.*
 import laika.api.format.TagFormatter
-import org.apache.batik.dom.GenericDOMImplementation
-import org.apache.batik.svggen.{SVGGeneratorContext, SVGGraphics2D}
-import org.scilab.forge.jlatexmath.cyrillic.CyrillicRegistration
-import org.scilab.forge.jlatexmath.greek.GreekRegistration
+import uk.ac.ed.ph.snuggletex.{DOMOutputOptions, DOMPostProcessor, SerializationMethod, SnuggleEngine, SnuggleInput, XMLStringOutputOptions}
 
 import java.awt.{Color, Dimension, Insets}
 import java.io.{ByteArrayInputStream, ByteArrayOutputStream, OutputStreamWriter}
@@ -16,6 +12,10 @@ import java.nio.charset.StandardCharsets
 import javax.swing.JLabel
 import laika.parse
 import laika.parse.{BlockSource, LineSource}
+import org.w3c.dom
+import uk.ac.ed.ph.snuggletex.utilities.StylesheetManager
+
+import javax.xml.parsers.DocumentBuilderFactory
 
 
 case class LaTeXBlock(content: String, options: Options = Options.empty) extends Block {
@@ -26,13 +26,30 @@ case class LaTeXBlock(content: String, options: Options = Options.empty) extends
 
 object LaTeXBundle extends DirectiveRegistry {
   import scala.sys.process.*
-  def renderLaTeX(input: String): String = {
-    val is = new ByteArrayInputStream(input.getBytes(StandardCharsets.UTF_8))
-    val os = new ByteArrayOutputStream()
-    Process("npx katex -d -T --format html").#<(is).#>(os).!<
+  val engine = new SnuggleEngine()
 
-    os.flush()
-    new String(os.toByteArray, StandardCharsets.UTF_8)
+  object InlineProcessor extends DOMPostProcessor {
+    override def postProcessDOM(workDocument: dom.Document, options: DOMOutputOptions, stylesheetManager: StylesheetManager): dom.Document = {
+      val doc = workDocument.cloneNode(true).asInstanceOf[dom.Document]
+      doc.getDocumentElement.removeAttribute("display")
+      doc
+    }
+  }
+
+  def renderLaTeX(input: String, displayMode: Boolean = true): String = {
+    val session = engine.createSession()
+    val wrapper = if (displayMode) "$$" else "$"
+    val goodInput = new SnuggleInput(wrapper + input + wrapper)
+    session.parseInput(goodInput)
+
+    val options = new XMLStringOutputOptions()
+    options.setSerializationMethod(SerializationMethod.XML)
+    options.setIndenting(false)
+    options.setEncoding("UTF-8")
+    options.setAddingMathSourceAnnotations(true)
+
+
+    session.buildXMLString(options)
   }
 
   val custom: PartialFunction[(TagFormatter, Element), String] = {
@@ -55,7 +72,19 @@ object LaTeXBundle extends DirectiveRegistry {
     }
   }
 
-  override def spanDirectives: Seq[SpanDirectives.Directive] = Seq()
+  object MySpanDirectives {
+    import SpanDirectives.dsl._
+
+    val latexDirective = SpanDirectives.create("latex") {
+      rawBody.map { it =>
+        val rendered = renderLaTeX(it, displayMode = false)
+
+        RawContent(NonEmptySet.one("html"), s"<span>$rendered</span>")
+      }
+    }
+  }
+
+  override def spanDirectives: Seq[SpanDirectives.Directive] = Seq(MySpanDirectives.latexDirective)
 
   override def blockDirectives: Seq[BlockDirectives.Directive] = Seq(MyBlockDirectives.latexDirective)
 

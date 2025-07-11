@@ -110,7 +110,7 @@ from the floor and ceiling of the average.
 Let's calculate the average of the positions, which is just
 
 @:latex
-\frac{n1 + n2 + ... + nN}{N}
+\frac{n_1 + n_2 + ... + n_k}{k}
 @:@
 
 @:select(language)

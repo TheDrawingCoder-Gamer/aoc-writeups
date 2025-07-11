@@ -131,7 +131,58 @@ This replaces our previous calc function, so part 1 also gets faster, but let's 
 ```scala 3
 def part2(input: List[Int]): Int = calc(input, 30_000_000)
 ```
+## Full Code
 
+```scala 3
+enum Memory:
+  case First(idx: Int)
+  case Repeated(old: Int, recent: Int)
+
+  def mostRecent: Int = this match
+    case First(i) => i
+    case Repeated(_, i) => i
+
+def setMap(map: Map[Int, Memory], num: Int, idx: Int): Map[Int, Memory] =
+  map.get(num) match
+    case Some(v) => map.updated(num, Memory.Repeated(v.mostRecent, idx))
+    case None => map.updated(num, Memory.First(idx))
+
+// unused, but here for completeness
+def oldCalc(input: List[Int], n: Int): Int =
+  val m = input.zipWithIndex.map[(Int, Memory)]((x, i) => (x, Memory.First(i))).toMap
+  Iterator.iterate((input.last, input.length, m)): (lastNum, idx, map) =>
+    map(lastNum) match
+      case Memory.First(_) =>
+        (0, idx + 1, setMap(map, 0, idx))
+      case Memory.Repeated(i, r) =>
+        val n = r - i
+        (n, idx + 1, setMap(map, n, idx))
+  .drop(n - input.length).next()._1
+
+def part1(input: List[Int]): Int = calc(input, 2020)
+
+def calc(input: List[Int], n: Int): Int =
+  val arr = Array.fill[Long](n)(0L)
+  input.zipWithIndex.foreach: (x, i) =>
+    arr(x) = i.toLong + 1L
+
+  def setArr(num: Int, idx: Int): Unit =
+    arr(num) = (arr(num) << 32) + idx.toLong + 1L
+    
+  var lastNum = input.last
+  (input.length until n).foreach: idx =>
+    val lastI = arr(lastNum)
+    if lastI > Int.MaxValue.toLong then
+      val x = (lastI & Int.MaxValue.toLong) - (lastI >> 32)
+      lastNum = x.toInt
+      setArr(x.toInt, idx)
+    else
+      lastNum = 0
+      setArr(0, idx)
+  lastNum
+
+def part2(input: List[Int]): Int = calc(input, 30_000_000)
+```
 
 @:benchmarkSection {
     overrideP1 = us

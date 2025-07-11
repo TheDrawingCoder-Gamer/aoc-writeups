@@ -23,6 +23,9 @@ object ScalaCenterLinkDirectives extends DirectiveRegistry {
     SpanLink(Seq(Text(s"Advent of Code $year, Day $day")), ExternalTarget(s"https://adventofcode.com/$year/day/$day"))
   def scalaCenterLink(year: Int, day: Int): SpanLink =
     SpanLink(Seq(Text(s"Scala Center Advent of Code $year, Day $day")), ExternalTarget(s"https://scalacenter.github.io/scala-advent-of-code${if (year != 2021) s"/$year" else ""}/puzzles/day${if (year != 2021) paddedDay(day) else day.toString}"))
+  def gitSolnLink(year: Int, day: Int): SpanLink =
+    SpanLink(Seq(Text(s"My Solution for $year, Day $day")), ExternalTarget(s"https://github.com/TheDrawingCoder-Gamer/adventofcode2024/blob/master/core/shared/src/main/scala/gay/menkissing/advent${if (year == 2024) "" else s"/y$year"}/Day${paddedDay(day)}${if (year == 2024) "" else s"y$year"}.scala"))
+
   object MySpanDirectives {
     import SpanDirectives.dsl._
     val scalaLinkDirective = SpanDirectives.create("scalaLink") {
@@ -36,6 +39,14 @@ object ScalaCenterLinkDirectives extends DirectiveRegistry {
     val aocLinkDirective = SpanDirectives.create("aocLink") {
       (cursor, source).mapN { (cursor, source) =>
         linkFromYD(cursor, source, aocLink).fold(
+          e => InvalidSpan(e._1, e._2),
+          identity
+        )
+      }
+    }
+    val gitSolnDirective = SpanDirectives.create("gitSolnLink") {
+      (cursor, source).mapN { (cursor, source) =>
+        linkFromYD(cursor, source, gitSolnLink).fold(
           e => InvalidSpan(e._1, e._2),
           identity
         )
@@ -68,9 +79,14 @@ object ScalaCenterLinkDirectives extends DirectiveRegistry {
           r => Paragraph(r)
         )
       }
-
-
-
+    }
+    val gitSolnDirective = BlockDirectives.create("gitSolnLink") {
+      (cursor, source).mapN { (cursor, source) =>
+        linkFromYD(cursor, source, gitSolnLink).fold(
+          e => InvalidBlock(e._1, e._2),
+          r => Paragraph(r)
+        )
+      }
     }
 
     def bustedHeader(level: Int, text: String): Block =
@@ -115,13 +131,14 @@ object ScalaCenterLinkDirectives extends DirectiveRegistry {
 
   }
 
-  override def spanDirectives: Seq[SpanDirectives.Directive] = Seq(MySpanDirectives.scalaLinkDirective, MySpanDirectives.aocLinkDirective)
+  override def spanDirectives: Seq[SpanDirectives.Directive] = Seq(MySpanDirectives.scalaLinkDirective, MySpanDirectives.aocLinkDirective, MySpanDirectives.gitSolnDirective)
 
   override def blockDirectives: Seq[BlockDirectives.Directive] = Seq(
     MyBlockDirectives.ifValidYear,
     MyBlockDirectives.scalaLinkDirective,
     MyBlockDirectives.aocLinkDirective,
-    MyBlockDirectives.solutionDirective)
+    MyBlockDirectives.solutionDirective,
+    MyBlockDirectives.gitSolnDirective)
 
   override def templateDirectives: Seq[TemplateDirectives.Directive] = Seq()
 

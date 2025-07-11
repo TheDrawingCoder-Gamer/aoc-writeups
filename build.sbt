@@ -5,8 +5,9 @@ import cats.effect.{IO => CIO}
 import laika.ast.DocumentType
 import laika.ast.Path.Root
 import laika.helium.Helium
-import laika.theme.config.{Color, StyleAttributes, CrossOrigin}
+import laika.theme.config.{Color, CrossOrigin, StyleAttributes}
 import BenchmarkBundle.implicits.*
+import laika.helium.config.{HeliumIcon, IconLink}
 
 import scala.concurrent.duration.DurationDouble
 
@@ -39,6 +40,13 @@ val theme = Helium.defaults
       |  }
       |}
       |""".stripMargin)
+                  .site.topNavigationBar(
+                    homeLink = IconLink.internal(Root / "about.md", HeliumIcon.home),
+                    navLinks = Seq(
+                      IconLink.external("https://github.com/TheDrawingCoder-Gamer/adventofcode2024", HeliumIcon.github),
+                      IconLink.external("https://github.com/TheDrawingCoder-Gamer/aoc-writeups", HeliumIcon.link)
+                    )
+                  )
                   .build
 
 lazy val docs = project
