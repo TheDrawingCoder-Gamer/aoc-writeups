@@ -24,7 +24,7 @@ object ScalaCenterLinkDirectives extends DirectiveRegistry {
   def scalaCenterLink(year: Int, day: Int): SpanLink =
     SpanLink(Seq(Text(s"Scala Center Advent of Code $year, Day $day")), ExternalTarget(s"https://scalacenter.github.io/scala-advent-of-code${if (year != 2021) s"/$year" else ""}/puzzles/day${if (year != 2021) paddedDay(day) else day.toString}"))
   def gitSolnLink(year: Int, day: Int): SpanLink =
-    SpanLink(Seq(Text(s"My Solution for $year, Day $day")), ExternalTarget(s"https://github.com/TheDrawingCoder-Gamer/adventofcode2024/blob/master/core/shared/src/main/scala/gay/menkissing/advent${if (year == 2024) "" else s"/y$year"}/Day${paddedDay(day)}${if (year == 2024) "" else s"y$year"}.scala"))
+    SpanLink(Seq(Text(s"My Solution for $year, Day $day")), ExternalTarget(s"https://github.com/TheDrawingCoder-Gamer/adventofcode2024/blob/master/core/shared/src/main/scala/gay/menkissing/advent/y$year/Day${paddedDay(day)}.scala"))
 
   object MySpanDirectives {
     import SpanDirectives.dsl._
