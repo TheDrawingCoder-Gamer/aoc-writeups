@@ -13,6 +13,19 @@ object Solver:
   def runSolutionP2[A, B](x: WithPart2[A, B] & WithParser[A])(str: String): String = x.part2(x.parse(str)).toString
 
 
+  private val solutions2015: Map[String, HalfDay[?, ?]] =
+    solutionMap(2015,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+    )
 
   private val solutions2020: Map[String, HalfDay[?, ?]] =
     solutionMap(2020,
@@ -117,6 +130,7 @@ object Solver:
 
   private val solutions: Map[String, Map[String, HalfDay[?, ?]]] =
     Map(
+      "2015" -> solutions2015,
       "2020" -> solutions2020,
       "2021" -> solutions2021,
       "2022" -> solutions2022,

@@ -1,7 +1,127 @@
 import java.util.concurrent.TimeUnit
 
 object JVMBenches {
-  val benchmarks = Map(    
+  val benchmarks = Map(
+    "day1y2015p1" -> BenchmarkTiming(
+      mean = 20133.614840989398d,
+      error = 228.57039135911484d,
+      unit = Some(TimeUnit.NANOSECONDS),
+      convertTo = Some(TimeUnit.MILLISECONDS)
+    ),
+    "day1y2015p2" -> BenchmarkTiming(
+      mean = 248227.4584837545d,
+      error = 1668.9433161907582d,
+      unit = Some(TimeUnit.NANOSECONDS),
+      convertTo = Some(TimeUnit.MILLISECONDS)
+    ),
+    "day2y2015p1" -> BenchmarkTiming(
+      mean = 857464.6552419355d,
+      error = 8691.064850928085d,
+      unit = Some(TimeUnit.NANOSECONDS),
+      convertTo = Some(TimeUnit.MILLISECONDS)
+    ),
+    "day2y2015p2" -> BenchmarkTiming(
+      mean = 889133.3638211382d,
+      error = 1548.1343995666953d,
+      unit = Some(TimeUnit.NANOSECONDS),
+      convertTo = Some(TimeUnit.MILLISECONDS)
+    ),
+    "day3y2015p1" -> BenchmarkTiming(
+      mean = 479423.7291280148d,
+      error = 5798.035044550911d,
+      unit = Some(TimeUnit.NANOSECONDS),
+      convertTo = Some(TimeUnit.MILLISECONDS)
+    ),
+    "day3y2015p2" -> BenchmarkTiming(
+      mean = 1098647.9621848739d,
+      error = 20938.431645858185d,
+      unit = Some(TimeUnit.NANOSECONDS),
+      convertTo = Some(TimeUnit.MILLISECONDS)
+    ),
+    "day4y2015p1" -> BenchmarkTiming(
+      mean = 7.29440751904762E7d,
+      error = 1119949.3138717304d,
+      unit = Some(TimeUnit.NANOSECONDS),
+      convertTo = Some(TimeUnit.MILLISECONDS)
+    ),
+    "day4y2015p2" -> BenchmarkTiming(
+      mean = 2.0775781203333333E9d,
+      error = 2.082241841629572E8d,
+      unit = Some(TimeUnit.NANOSECONDS),
+      convertTo = Some(TimeUnit.MILLISECONDS)
+    ),
+    "day5y2015p1" -> BenchmarkTiming(
+      mean = 1735130.561822126d,
+      error = 8986.676727032376d,
+      unit = Some(TimeUnit.NANOSECONDS),
+      convertTo = Some(TimeUnit.MILLISECONDS)
+    ),
+    "day5y2015p2" -> BenchmarkTiming(
+      mean = 6716223.045016077d,
+      error = 7378.2353431048405d,
+      unit = Some(TimeUnit.NANOSECONDS),
+      convertTo = Some(TimeUnit.MILLISECONDS)
+    ),
+    "day6y2015p1" -> BenchmarkTiming(
+      mean = 1.6856610010362696E7d,
+      error = 293284.2856698157d,
+      unit = Some(TimeUnit.NANOSECONDS),
+      convertTo = Some(TimeUnit.MILLISECONDS)
+    ),
+    "day6y2015p2" -> BenchmarkTiming(
+      mean = 1.710180647368421E7d,
+      error = 106476.94218217219d,
+      unit = Some(TimeUnit.NANOSECONDS),
+      convertTo = Some(TimeUnit.MILLISECONDS)
+    ),
+    "day7y2015p1" -> BenchmarkTiming(
+      mean = 945748.9937759336d,
+      error = 1839.3837228235848d,
+      unit = Some(TimeUnit.NANOSECONDS),
+      convertTo = Some(TimeUnit.MILLISECONDS)
+    ),
+    "day7y2015p2" -> BenchmarkTiming(
+      mean = 1004402.8760683761d,
+      error = 14591.22343193535d,
+      unit = Some(TimeUnit.NANOSECONDS),
+      convertTo = Some(TimeUnit.MILLISECONDS)
+    ),
+    "day8y2015p1" -> BenchmarkTiming(
+      mean = 183865.3594890511d,
+      error = 1272.4076765150312d,
+      unit = Some(TimeUnit.NANOSECONDS),
+      convertTo = Some(TimeUnit.MILLISECONDS)
+    ),
+    "day8y2015p2" -> BenchmarkTiming(
+      mean = 192014.18579234972d,
+      error = 2236.1810579971943d,
+      unit = Some(TimeUnit.NANOSECONDS),
+      convertTo = Some(TimeUnit.MILLISECONDS)
+    ),
+    "day9y2015p1" -> BenchmarkTiming(
+      mean = 1.578805892580645E8d,
+      error = 1175856.977026644d,
+      unit = Some(TimeUnit.NANOSECONDS),
+      convertTo = Some(TimeUnit.MILLISECONDS)
+    ),
+    "day9y2015p2" -> BenchmarkTiming(
+      mean = 1.5753301983870968E8d,
+      error = 1292988.518890359d,
+      unit = Some(TimeUnit.NANOSECONDS),
+      convertTo = Some(TimeUnit.MILLISECONDS)
+    ),
+    "day10y2015p1" -> BenchmarkTiming(
+      mean = 648058.7479838709d,
+      error = 9481.866839294657d,
+      unit = Some(TimeUnit.NANOSECONDS),
+      convertTo = Some(TimeUnit.MILLISECONDS)
+    ),
+    "day10y2015p2" -> BenchmarkTiming(
+      mean = 903945.3781512605d,
+      error = 8129.018669358868d,
+      unit = Some(TimeUnit.NANOSECONDS),
+      convertTo = Some(TimeUnit.MILLISECONDS)
+    ),
     "day1y2020p1" -> BenchmarkTiming(
       mean = 1.0854278274509804E7d,
       error = 118058.37224303873d,
