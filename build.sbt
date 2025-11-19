@@ -11,7 +11,7 @@ import laika.helium.config.{HeliumIcon, IconLink}
 
 import scala.concurrent.duration.DurationDouble
 
-ThisBuild / scalaVersion := "3.6.2"
+ThisBuild / scalaVersion := "3.7.4"
 
 lazy val root = project.in(file("."))
 
@@ -114,5 +114,6 @@ lazy val solver = project
       "com.raquo" %%% "laminar" % "17.1.0",
       "gay.menkissing" %%% "adventofcode2024" % "0.1.0-SNAPSHOT"
     ),
-    scalaJSLinkerConfig ~= (_.withModuleKind(ModuleKind.ESModule))
+    scalaJSLinkerConfig ~= (_.withModuleKind(ModuleKind.ESModule)),
+    scalacOptions += "-experimental"
   )
