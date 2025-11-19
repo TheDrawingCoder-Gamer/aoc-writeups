@@ -82,7 +82,7 @@ final case class Vec4(x: Int, y: Int, z: Int, w: Int):
 
 In my real code, Vec4 is also parameterized so I can take advantage of my generic Vector macro.
 This macro implements the neighbors function somewhat more efficiently by enumerating each case explicitly
-rather than also including the empty case.
+rather than filtering out the empty case.
 
 @:@
 
