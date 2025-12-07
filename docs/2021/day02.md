@@ -81,7 +81,7 @@ Part 1 is just a `foldLeft` (or a `reduce` in Elixir, same thing).
 @:choice(scala)
 ```scala 3
 def part1(input: List[(Dir, Int)]): Int =
-   val (horz, depth) = input.foldLeft((0, 0, 0)):
+   val (horz, depth) = input.foldLeft((0, 0)):
       case ((horz, depth), (dir, n)) =>
          dir match
             case Dir.Forward => (horz + n, depth)
